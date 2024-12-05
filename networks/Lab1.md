@@ -24,8 +24,7 @@ Using Ubuntu 24.0.1 tls
 - and then there is the APIPA which is given a temporary IP assigned IP which isnt valid for establishing a connection but needs to be given so that the device cant be connected to a network without being assigned an ip and whenever trying to establish a connection an ip must be given either statically or with DHCP for it to work
 
 # make your device get its private ip statically
-
-
+***this question was the hardest to do in the cmd which i still need to figure out***
 # Reset your device to get its private IP automatically
 - it will be given automatically by enabling the DHCP
 - after trying to set static IP it was a test run didnt change the actual ip so my current ip address and configuration is still the same as the first question
