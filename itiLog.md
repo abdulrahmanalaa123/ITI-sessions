@@ -124,5 +124,40 @@ ip addresses define the location and network info while mac addresses are unique
 - remote access to a machine telnet sends the data between the two devices using plain text
 - while ssh is the standard right now and offers a much more secure connection
 
+# 5-12-2024
 
+## CyberSecurity
 
+- Security is as secure as its weakest link
+- the three links for security are The client (End user)
+- Network resources (Routers, Switches, or even Mobile Networks)
+- Server Resources (Blade Servers, Rack Mounts)
+
+### CIA 
+
+#### confidentiality
+- The data allocated or process performed needs to be condifential with no access for any one
+#### integrity
+- The data allocated or process performed determines its integrity by minimalizing or proofing tampering using such methods as hashing and checksums, etc.
+#### Availability
+- The data is available only to the owner and the chosen members with access to it and cant be changed unauthorized 
+
+### Security is as important as what you are protecting
+- No security system can awork with the system of 9s like 3 9s 99.9% because there's always a vulnerability inside the system which can be managed to be cracked
+
+### Hat types
+- Black (Malicious)
+- White (Security analysis)
+- Grey (A bit of both)
+
+- Social engineering is the art of manipulating people and identifying several key info enough to access their account or credentials, etc.
+- Phising attack 
+- spoofing is modifying the source of packets so that they appear to be coming from someone else
+- man in the middle attack is someone that cna intercept the packets sent between two devices usually due to wifi as well as he can only intercept and understand non encrypted data sent between those 2 nodes 
+### Malwares
+- Independent Malicious software means that once its on the device it doesnt need interaction to be activated like worms or zombies
+- Dependent are systems that need a host system to spread cant replicate on its own like viruses, trojans 
+- Worms are of the family of trojans, and they are the transfer medium or the program to replicate and transfer itself onto several devices where it doesnt require user access or host initiation for it to start replicating as well as run their onboarded viruses which can be replicated throughout the network or through storage systems, etc.
+- Zombies are a malware which can replicate itself but it hijacks the computer and uses its resources for malicious activities could be mining or using them as a node for ddosing, etc.
+- man in the middle is the attack responsible for intercepting the incoming packets and utilizing it in malicious activities but normally intercepting the packets he cant identify anything due to encryption standards in https and several connection methods 
+***the question is how can a vpn protect which sounds like bs to me since it doesnt provide any encryption over outcoming requests he still can intercept it using his router and or the pinapple, etc. vpn wouldnt protect shit from that needs to be looked upon*** 
