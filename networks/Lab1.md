@@ -1,5 +1,5 @@
 Using Ubuntu 24.0.1 tls
-4-12-2024
+# 4-12-2024
 
 # Explain how to get the private IP
 - by using ifconfig [interface name]
