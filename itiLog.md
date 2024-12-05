@@ -51,8 +51,6 @@
 
 ### Protocols
 
-***hussein nasser will be here***
-
 - OSI model was a standardized refernce model made by the ISO copropration to aid in generalizing the connection methods between devices manufactured by different companies
 
 - Application
@@ -126,6 +124,5 @@ ip addresses define the location and network info while mac addresses are unique
 - remote access to a machine telnet sends the data between the two devices using plain text
 - while ssh is the standard right now and offers a much more secure connection
 
-# 4-12-2024
 
 
