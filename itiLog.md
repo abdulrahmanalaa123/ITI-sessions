@@ -188,5 +188,13 @@ ip addresses define the location and network info while mac addresses are unique
 - ACL mac address access control list
 
 ## Distributed Systems
+- is a state that divides traffic over multiple pcs 
+- More robust
+### scalability types
+- Vertical
+- Horizontal 
 
-### 
+### Distributed Systems Architecture
+- 
+- 3 Tier
+- n tier architecture
