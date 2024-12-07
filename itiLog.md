@@ -195,6 +195,17 @@ ip addresses define the location and network info while mac addresses are unique
 - Horizontal 
 
 ### Distributed Systems Architecture
-- 
+- peer to peer 
 - 3 Tier
 - n tier architecture
+
+### Distributed Systems characteristics
+
+***I dont like throwing terms and what are the cons of distributed systems alot was left out while explaining distributed systems which isnt that good but alot of research needs to be done naturally although these characteristics im sure that most of them are lose and arent a defined terms***
+
+- scalability
+- heterogeneity
+- security
+- openness
+- failure handling (in other terms availability)
+- 
