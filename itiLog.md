@@ -208,4 +208,7 @@ ip addresses define the location and network info while mac addresses are unique
 - security
 - openness
 - failure handling (in other terms availability)
-- 
+- concurrency 
+- transparency
+
+***keep in mind I will explain this later as i didnt write much because it seems that the discussion on this day wasnt enough for explaining these charachteristics or distributed systems in general maybe in another repo not here neither the security as well***
