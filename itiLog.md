@@ -160,4 +160,33 @@ ip addresses define the location and network info while mac addresses are unique
 - Worms are of the family of trojans, and they are the transfer medium or the program to replicate and transfer itself onto several devices where it doesnt require user access or host initiation for it to start replicating as well as run their onboarded viruses which can be replicated throughout the network or through storage systems, etc.
 - Zombies are a malware which can replicate itself but it hijacks the computer and uses its resources for malicious activities could be mining or using them as a node for ddosing, etc.
 - man in the middle is the attack responsible for intercepting the incoming packets and utilizing it in malicious activities but normally intercepting the packets he cant identify anything due to encryption standards in https and several connection methods 
+
+### IPS
+- IPS is an intrusion prevention system which can be divided into two categories host based which on an end client and a network based one installed on the network device how can it detect the intrusion is based on three types a combination of them also keep in mind that IPS isnt deployed and cant protect on its own it is deployed usually within a protection suite of programs like an advanced firewall, etc.
+- History of attacks: detects network activity for registered malicious attacks that has historically been done
+- Anomaly detection: detect anomalies inside the network by analyzing a random sample of requests made by the host or network
+- Policy based: where it detects intrusions based on policies or requests defined by the adminstrator such as for example any ftp reuqest is denied, etc.
+
 ***the question is how can a vpn protect which sounds like bs to me since it doesnt provide any encryption over outcoming requests he still can intercept it using his router and or the pinapple, etc. vpn wouldnt protect shit from that needs to be looked upon*** 
+***on my knowledge vpn is shit well here is what backs it but the concensus of people on stackoverflow and its a useless topic atm needs no further searching but yet im confident im right https://stackoverflow.com/questions/50033054/can-a-man-in-the-middle-attack-on-an-https-read-all-the-communication***
+
+# 7-12-2024
+## Security
+
+### Firewalls
+- FireWall can control inbound and outbound requests where it resides in the network and transport layer
+- IPS/IDS
+- nextgengfirewall (includes IPS/IDS/Firewall all in one system)
+### Proxy servers
+- A rerouting agent responsible for obsucring the source ip address and changing its origin location which acts as a middleman between us
+- A vpn
+### VPN
+- The Vpn includes a tunneled connection which is directed between the device and destination network to be such as a device inside the network and can only be configured inside that network 
+### Wireless Access security
+- close the SSID which is what broadcasts the network or wifi to everyone which means it is hidden
+- wpa2 strong securit uses AES
+- ACL mac address access control list
+
+## Distributed Systems
+
+### 
