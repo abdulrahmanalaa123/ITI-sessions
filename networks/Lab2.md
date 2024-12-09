@@ -33,7 +33,10 @@
 - It is encouraged to put ftp servers on dmz because if it does get compromised people dont get access to the private network or your sensitive info thats logical but yet i cant configure that atm so fuck it
 
 ### Policies
-- requests in firewalls in general go through a policy chain with each having its own priority in firewalld policies have a default priority of -1 which means it goes through the zone policy first policy priority numbers range from -3786 to 3786 (as i remember) and each policy have its own ports, targets, rules, etc
+- requests in firewalls in general go through a policy chain with each having its own priority in firewalld policies have a default priority of -1 which means it goes through the zone policy second
+- policy priority numbers range from -3786 to 3786 (as i remember) and each policy have its own ports, targets, rules, etc 
+- negative being applied before the zone rules and positive being applied after the zone rules
+
 ### Zone Targets in firewalld
 
 - The zone targets are actions required to do when not following the defined rules
@@ -45,3 +48,5 @@
 ### Policy Targets in firewalld
 - They are the same as the zone policies but instead of default it has a continue target which i believe makes it continue on the policy chain
 
+***need to look in ingress and egress-zones for policies but later i dont need it rn to create the server***
+***note that to the default for policies to apply on any traffic going from the host to any other zone is ingress-zone:HOST egress-zone:ANY***
