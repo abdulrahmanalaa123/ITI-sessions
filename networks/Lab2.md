@@ -24,4 +24,10 @@
 - the manuals library
 ### friewalld
 - firewalld is a zone based firewall which puts poilicies and services with rules against different zones
-- so what does zone based mean? a zone is typically a network whihc is connected by a router 
+- so what does zone based mean? a zone is typically a network whihc is connected by a router zone based firewalls work on zone to zone communication which unlike past where each device has his context based firewall (not delving into this rabbit hole)
+- zone based configurations are usually split into 3 main types 
+#### Main Types of Zones
+- public zones which accesses the internet which is configured for outbound requests coming into my server 
+- private zones are firewall rules applied to internal zone to zone communication for example i have a netowrk of pcs that wants to communicate to another inside my facility we mark these with private zones and assigning the proper interface
+- DMZ (dematerialized zones) its a neutral zone (keep in mind i dont understand it that well its a bit out of my scope rn) its said to be the zones which are in between public and private zones they dont access the internet but can be accessed publicly sth like that dont really know for sure but yet its one type i guess
+- It is encouraged to put ftp servers on dmz because if it does get compromised people dont get access to the private network or your sensitive info thats logical but yet i cant configure that atm so fuck it
