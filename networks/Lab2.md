@@ -31,3 +31,17 @@
 - private zones are firewall rules applied to internal zone to zone communication for example i have a netowrk of pcs that wants to communicate to another inside my facility we mark these with private zones and assigning the proper interface
 - DMZ (dematerialized zones) its a neutral zone (keep in mind i dont understand it that well its a bit out of my scope rn) its said to be the zones which are in between public and private zones they dont access the internet but can be accessed publicly sth like that dont really know for sure but yet its one type i guess
 - It is encouraged to put ftp servers on dmz because if it does get compromised people dont get access to the private network or your sensitive info thats logical but yet i cant configure that atm so fuck it
+
+### Policies
+- requests in firewalls in general go through a policy chain with each having its own priority in firewalld policies have a default priority of -1 which means it goes through the zone policy first policy priority numbers range from -3786 to 3786 (as i remember) and each policy have its own ports, targets, rules, etc
+### Zone Targets in firewalld
+
+- The zone targets are actions required to do when not following the defined rules
+- They are for zones default , Accept, Reject, Drop and for the default is just like the reject but it will pass ICMP messages trying to reach the network
+- Accept is letting the packet go through and its in cases that the zone is trusted and 
+- And for drop is drop the incoming packet coming into the zone not following any of the policies
+- and finally for reject is simply block the packet that doesnt match the rules
+
+### Policy Targets in firewalld
+- They are the same as the zone policies but instead of default it has a continue target which i believe makes it continue on the policy chain
+
