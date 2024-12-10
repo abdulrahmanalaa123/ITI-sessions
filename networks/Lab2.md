@@ -7,11 +7,28 @@
 ## learned along the way
 
 ### Vsftpd
+### FTP
+https://www.cosmos.esa.int/documents/772136/977578/psa_activeVsPassiveFtp.pdf/5e36a7b8-8732-4e65-ab6b-6cf94a742ea6
+- this is a real concise and a neat explanation for ftp and ftp protcols 
+- ftp is a unique protocol which uses 2 ports to perform a transfer 20,21 one is called a command port which is done to send the identification and establish the connection and one is the data port which is established to transfer data through it 
+- ftp is divided into two connection methods active and passive connections
+
+#### Active Connection
+- well the active connection handles the connection server side which means the client connects to the command port from a random port(n) and the server responds from its command port (21) to the client's command port(n) 
+- then the server connects to the client's random port 2 (n+1) through its data port (20) and then the client responds back to the data port (20) 
+- and finally the client sends acknowledgment to the server establishing the tcp connection on which they can transfer data 
+- this compromises the client since its ports are random it must enable a range of ports in its firewall so it weakens the security a bit (not fully understood tho)
+
+#### Passive connection
+- The passive connection handles the connection on the client side.
+- The client sends from a random port (n) to the server's command port (21) wanting to connect then the server responds from the command port(21) to (n) opening a random port specified in a range outside the reserved ports(k)
+- The client then connects to the said port(k) from its data port(n+1) sending the sync request and the server responds back with the ack to the port(n+1)
+- Now how this comprimises the server by exposing a range of allowed inbound ports which comprimises the server in this case 
 
 ### chroot
-- well chroot is a virtual root folder change for the current process and all of its children which is useful in the ftp server where you can set the ftp directory as the root directory for the anon user for example cant access but it
-- and if you use ldd to see the required shared libraries or binaries needed for the chroot to take a copy of the directory you're trying to make the root to work
-- creates an isolated environment which is perfect for ftp
+-  well chroot is a virtual root folder change for the current process and all of its children which is useful in the ftp server where you can set the ftp directory as the root directory for the anon user for example cant access but it
+-  and if you use ldd to see the required shared libraries or binaries needed for the chroot to take a copy of the directory you're trying to make the root to work
+-  creates an isolated environment which is perfect for ftp
 
 
 ### sda1
@@ -20,8 +37,6 @@
 ### fstab , df 
 - fstab is the mounting map for the linux which implies where and what to boot from which partition but wont look into that since its not of that much use rn 
 - df prints the current available storage space on the device with all its partitions and drives, etc.
-### apropos
-- the manuals library
 ### friewalld
 - firewalld is a zone based firewall which puts poilicies and services with rules against different zones
 - so what does zone based mean? a zone is typically a network whihc is connected by a router zone based firewalls work on zone to zone communication which unlike past where each device has his context based firewall (not delving into this rabbit hole)
@@ -48,5 +63,7 @@
 ### Policy Targets in firewalld
 - They are the same as the zone policies but instead of default it has a continue target which i believe makes it continue on the policy chain
 
-***need to look in ingress and egress-zones for policies but later i dont need it rn to create the server***
-***note that to the default for policies to apply on any traffic going from the host to any other zone is ingress-zone:HOST egress-zone:ANY***
+- ***need to look in ingress and egress-zones for policies but later i dont need it rn to create the server***
+
+
+- ***note that to the default for policies to apply on any traffic going from the host to any other zone is ingress-zone:HOST egress-zone:ANY***
