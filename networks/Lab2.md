@@ -21,7 +21,9 @@ sudo yum install vsftpd
 ```
 
 ### 3- disable seLinux for testing purposes on a real life situation you would need to configure to enable access for ftp which i dont know how and didnt bother which is in /etc/selinux/config
-
+```
+SELINUX=disabled
+```
 ### 4- and finally config the ftp to chroot any non-admin user but this link does the ftp config really well and i see that i have no input over it unless you want to customize which you need to man the conf as mentioned below thats what i did at least 
  
 - https://www.geeksforgeeks.org/how-to-setup-and-configure-an-ftp-server-in-linux-2/
