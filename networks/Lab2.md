@@ -8,7 +8,9 @@
 
 ### Vsftpd
 ### FTP
-https://www.cosmos.esa.int/documents/772136/977578/psa_activeVsPassiveFtp.pdf/5e36a7b8-8732-4e65-ab6b-6cf94a742ea6
+
+- https://www.cosmos.esa.int/documents/772136/977578/psa_activeVsPassiveFtp.pdf/5e36a7b8-8732-4e65-ab6b-6cf94a742ea6
+
 - this is a real concise and a neat explanation for ftp and ftp protcols 
 - ftp is a unique protocol which uses 2 ports to perform a transfer 20,21 one is called a command port which is done to send the identification and establish the connection and one is the data port which is established to transfer data through it 
 - ftp is divided into two connection methods active and passive connections
