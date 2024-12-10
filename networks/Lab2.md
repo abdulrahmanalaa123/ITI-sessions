@@ -2,11 +2,37 @@
 
 ## Setting up a vm as an ftp server and I would be the client using ftpd
 
-- first install vsftpd on centos using yum 
+### 1- first install vsftpd on centos using yum 
+
+```
+sudo yum install vsftpd
+```
+
+### 2- and configure the firewall public zone for enabling the ports on passive mode
+
+```
+ sudo firewall-cmd --zone=public --add-port=20/tcp 
+ sudo firewall-cmd --zone=public --add-port=21/tcp
+ sudo firewall-cmd --zone=public --add-port=5000-6000/tcp
+ sudo firewall-cmd --zone=public --add-service=ftp
+ 
+ // protocol 6 is the number for the tcp protocol defined in /etc/protocols 
+ sudo firewall-cmd --zone=public --add-protocol=6
+ 
+
+```
+
+### 3- disable seLinux for testing purposes on a real life situation you would need to configure to enable access for ftp which i dont know how and didnt bother which is in /etc/selinux/config
+
+### 4- and finally config the ftp to chroot any non-admin user but this link does the ftp config really well and i see that i have no input over it unless you want to customize which you need to man the conf as mentioned below thats what i did at least 
+ 
+- https://www.geeksforgeeks.org/how-to-setup-and-configure-an-ftp-server-in-linux-2/
 
 ## learned along the way
 
 ### Vsftpd
+- Well I cant and wont explain the whole service since its not preferrable all you need to know is written in their man just read it but what you need to know is that its an ftp daemonn that if specified listen it will run as a background service and would be handled with systemctl and if not you need to run the binary for the service to start
+- a sfor another helpful tip for the cocnfigs is just open man vsftpd.conf.5 and it contains everything you need as well from chroot options to local access.
 ### FTP
 
 - https://www.cosmos.esa.int/documents/772136/977578/psa_activeVsPassiveFtp.pdf/5e36a7b8-8732-4e65-ab6b-6cf94a742ea6
@@ -14,6 +40,9 @@
 - this is a real concise and a neat explanation for ftp and ftp protcols 
 - ftp is a unique protocol which uses 2 ports to perform a transfer 20,21 one is called a command port which is done to send the identification and establish the connection and one is the data port which is established to transfer data through it 
 - ftp is divided into two connection methods active and passive connections
+- ascii mode is the conversion method of line terminators in windows to linux or vice versa where it standardizes both in the connection and transforms it at the host platform for whomever initiated the request or requesting the file
+- disabling it just transfers the file as is without modification
+- there is some info about binary file transferring which i dont fully understand but fuck it it aint that useful
 
 #### Active Connection
 - well the active connection handles the connection server side which means the client connects to the command port from a random port(n) and the server responds from its command port (21) to the client's command port(n) 
