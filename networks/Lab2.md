@@ -11,15 +11,13 @@ sudo yum install vsftpd
 ### 2- and configure the firewall public zone for enabling the ports on passive mode
 
 ```
- sudo firewall-cmd --zone=public --add-port=20/tcp 
- sudo firewall-cmd --zone=public --add-port=21/tcp
- sudo firewall-cmd --zone=public --add-port=5000-6000/tcp
- sudo firewall-cmd --zone=public --add-service=ftp
+ sudo firewall-cmd --zone=public --permanent --add-port=20/tcp 
+ sudo firewall-cmd --zone=public --permanent --add-port=21/tcp
+ sudo firewall-cmd --zone=public --permanent --add-port=5000-6000/tcp
+ sudo firewall-cmd --zone=public --permanent --add-service=ftp
  
  // protocol 6 is the number for the tcp protocol defined in /etc/protocols 
- sudo firewall-cmd --zone=public --add-protocol=6
- 
-
+ sudo firewall-cmd --zone=public --permanent --add-protocol=6
 ```
 
 ### 3- disable seLinux for testing purposes on a real life situation you would need to configure to enable access for ftp which i dont know how and didnt bother which is in /etc/selinux/config
@@ -28,6 +26,21 @@ sudo yum install vsftpd
  
 - https://www.geeksforgeeks.org/how-to-setup-and-configure-an-ftp-server-in-linux-2/
 
+### 5-setup a host domain in the /etc/hosts on the client side to not specifically call it by the ip address (not necessary just a convenience)
+
+```
+xxx.xxx.xxx.xxx www.myftp.com
+```
+
+### 6- in your ftp directory create a large txt file of 1gb for testing transfer 
+```
+dd if=/dev/zero of=large_file.txt bs=100M count=10
+```
+
+### finally you can connect and test your own ftp server
+```
+ftp www.myftp.com
+```
 ## learned along the way
 
 ### Vsftpd
