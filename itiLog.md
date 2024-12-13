@@ -212,3 +212,221 @@ ip addresses define the location and network info while mac addresses are unique
 - transparency
 
 ***keep in mind I will explain this later as i didnt write much because it seems that the discussion on this day wasnt enough for explaining these charachteristics or distributed systems in general maybe in another repo not here neither the security as well***
+
+# 9-12-2024
+
+https://dev.to/sardarmudassaralikhan/layered-architecture-used-in-software-development-8jd
+
+## Choosing between Relational and non-relational databases
+- it was specified by the amount of joins needed to be performed to retrieve on unit of data or the deepest length
+- and using relational in the ocnsistency of the input data like for exmaple im making an email storing database with attachments i dont know what types of attachments are we adding then we might choose no sql while you can give arguments for relational but just bear with me 
+
+ptp database cant be a relational database
+database sharding doesnt provide several endpoints and neither a simulated one she says that when using relational databases it must be on one endpoint even if its sharded which is bs i think gotta check
+(reasoinings are fucked up)
+
+columnar data storage vs column oriented databases
+
+keys and weak entities candidate vs primary vs surrogate key vs partial key
+
+how would a string column be indexed and would integer be easier in indexing than strings
+ check on anomalies as well insertion , deletion , updating anomaly and its relation to not choosing a primary key for the ssn of the child
+
+shopping cart best practises she says its a big nono fro saving a shopping cart inside the database ffs that's fucking dumb
+
+reason for nroomalizing your database schema?? when to not as well
+
+Concurrent data access behaviour on sql server with transactions commits, etc.
+
+
+# 11-12-2024
+
+
+## Operating Systems
+
+- OS is simply just a sfotware
+- Cpu's Components are:
+### ALU
+- is the arithmetci logic unit responsible for arithmetic operations and logical operations probably
+### Registers
+- MAR is the register required to store the address of the memory needs to be accessed
+- MDR is the data registry which stroes data being transferred to and from memory so not only the address for fast calculations if it stays in the disk it will halt the process of calculation needs to be very fast
+- AC (Where itermediate  arithmetic and logic results are stored) (dont understand that fully)
+- PC program counter contains the address of the next instruction to be executed
+- CIR current instruction register address of the current instruction needed to be executed
+### Address Bus
+- carries the addresses between the memory and the registers or processor 
+- carries a maximum of a word size
+### Data Bus
+- carries the data between the memory and the registers and ( processor)
+- while this i believe can handle multiple bytes of data
+### porcces bus
+- its the bus which carries the instructions performed by the cpu between it and the memory i believe (not fully understood as well)
+### ROM
+- Read only memory used in the boot sequence and boot oeprations done on os startup boot sequence is called boot strapping
+### drivers
+- its a usage manual for the os to interact with the hw device
+### kernel
+- its the base level process that needs to be running it relies on kernel modules which are base processes running on the kernel like graphics modules network module, etc.
+### Control unit
+### multiprocessor systems
+- serving and loading processes comes in different algorithms and its called a schedhuling algorithm
+- Their whole goal is to optimize throughput (amount of rpocesses done), utilization (decrease down time), a 
+- Round robin random processes selection
+- shortest job serve first
+- Firtst in first serve
+***paging ???***
+### IPC (Inter process communication)
+- Its the procols used to communicate between applications depending on the os
+### Responsibilities of an OS
+- Scheduliing
+- Memory management
+- Io and resource management
+- Security (Access and protection)
+- File Systems
+- User interfacing (ease of access) (GUI/Shell)
+## Scheduling
+- A process (job) any program running
+### Program execution 
+- process conents:
+- text section Program instructions
+- program counter: next instruction address
+- Stack section: ordered data? ( at least he said that) 
+- heap section: static and global variables , Dynamic allocation of variables 
+
+### Process States
+- create (new)
+- admitted (ready)
+- the running and waiting process or interrupting is the job of the scheduler
+- running back to ready only happens on interrupting signals and timeouting of the process
+- terminated 
+### Process control block ( i dont actually understand what this is at least)
+- pointer (only occurs in child processes and not parent processes)
+- because the child process has the pointer of its parent to know which process it will return their outcome 
+- priority
+- pc
+- Cpu registers (MAR, MDR,AC)
+- Memory managemnt info
+- IO information
+- Accounting information
+
+### context switching
+- its a factor that should be taken in account as an overhead for the process for example process A and B switching from A to B you need to save the state of A and load the state of B and run B then stop and load the state of A  
+
+### Schedhuling criteria 
+- Cput utilization and Execution runtime the processes utilizing the cpu excluding idle cycles
+- Volume/Excution throughput is the ratio between the amount of processes you have into you and the amoutn you serve
+- 
+- 
+### Memory management
+- Memory management is encessary in 3 parts
+- Exchtable is loaded into memory
+- loading data required by the process before hand
+- loading data required by the process in runtime (stack/heap)
+### Address binding
+- didnt understand it at all
+### IPC methods
+#### Shared Memory method
+- using memory as a shared resource for communcating between processes which could be a hassle in synchronization
+#### IPC
+- using system calls to share data between processes in the kernels
+- we can also use tcp ip to communcate between cpus called the internet 
+### I/O
+- 
+### File Systems 
+- File systems is composed of two services 
+- Directory Service , Storage Service
+
+# 12-12-2024
+what i dont understand since most are basic commands and listing file directories which i already know
+- more vs less
+- find vs locate
+
+- you can use wild cards inside the command in itself no need to use grep to use them
+- col command in linux dont understand
+# 13-12-2024
+
+# user management 
+- any service running on my machine needs to have a user to control its permissions on files and directories it owns
+
+```
+- tomato:x:1000:1000:tomato,,,:/home/tomato:/bin/bash
+- tomato is my username
+- x is supposedly the passwd but it is no longer saved there
+- and 1000 is my user id
+- and 1000 is my group id
+- tomato ,,, comment about the user oftenly is the full name of the user
+- /home/tomato home dir
+- /bin/bash is the user login shell
+```
+
+- terminal is the front interface for the shellwhich is the link between you and the kernel
+
+```
+- tomato:$y$j9T$6HNUejiY3qUTCGrMFyCnq0$w3NfAjeMbYeFB3ocUji74e9hMpII0/6Q8VSmSXlo348:20065:0:99999:7:::
+```
+
+- 20065 the last time the user changed his passwd and time is calculate since he last changed it
+- 0 is the amount of days he needs to wait so he could change his passwd again
+- 99999 is the maximum amount of days needed for the passwd change which is infinity meaning you dont need to change it basically
+- 7 is th warning days happens before expiring of the passwd 
+- : is the amount of days where the passwd is inactive
+- : after passing the inactive days the account expires 
+- the last is for future use
+
+```
+- lxd:x:135:tomato
+- tomato:x:1000:
+```
+
+- tomato group name
+- x is a discarded position
+- 1000 is the group ids
+
+# contorlling users
+- useradd modifies /etc/passwd
+- -md means we're defining his home dir 
+- -s defines his shell location /bin/bash
+- -c comment ",,," which was shown above
+- /etc/skel is the folder whihc is needed to initialize the home dir for the user
+- su - omar swtiching the user specifying "-" meaning we're changing the user and going into his home directory
+
+- id shows the current id and the groups you're in
+
+```
+ -> id
+- gid=1000(tomato) groups=1000(tomato),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),122(lpadmin),135(lxd),136(sambashare)
+```
+- where the primary group is 1000(tomato) and all the others are supplementary groups for us (don't really know why specify them as supplementary)
+
+- usermod changes anything about the user if you're the sudo user -s changing his shell and -g changing his primary group keep in mind options come before the user name
+- sudo usermod -s /bin/bash -g hamada omar
+- meaning we swtich the shell to bash and his primary group is hamada
+- primary group's use is that anything created by the user by default the file's group owner is the primary group
+- supplementary groups are groups where you have their same permissions as well you can change file's group owner into one of the supplementary groups you belong to 
+- usermod -G overrides all the supplementary groups of the user to the specifiedgroup of -G  in usermod to append you need to specify the option -a which is append
+- keep in mind in the etc/groups shows the supplementary members and no thte primary members and each primary isnt shown in the file after the line explaining the groups
+- sudo chage -l [user name] lists the current settings for the user which is apparent in the shadow file whihc we explained before 
+- to change each in an interactive form dont write any options and to set 
+- just check the man for each condition the only important thing is just how to list them
+
+```
+Last password change					: ديس 08, 2024
+Password expires					: never
+Password inactive					: never
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 99999
+Number of days of warning before password expires	: 7
+```
+
+- this is the output for you to remember 
+- userdel deletes the user also chekc the man but keep in mind basically -r removes any data assigned to the group and the -R capital command deletes chroot user with all his chroot data
+- groupadd adds groups and adds user to the group
+- as well as modifying groups you can modify the id of the groups
+- who and w and whoami to 
+- who is for who is logged in on the system
+- w shows it in the long form
+- whoami shows the user youre logged in as
+- newgrp changes your current primary group to the group specified but the group must be on of the supplementary groups you belong to 
+- ctrl D exits the current group resetting to your primary group
