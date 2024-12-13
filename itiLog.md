@@ -404,7 +404,7 @@ what i dont understand since most are basic commands and listing file directorie
 - meaning we swtich the shell to bash and his primary group is hamada
 - primary group's use is that anything created by the user by default the file's group owner is the primary group
 - supplementary groups are groups where you have their same permissions as well you can change file's group owner into one of the supplementary groups you belong to 
-- usermod -G overrides all the supplementary groups of the user to the specifiedgroup of -G  in usermod to append you need to specify the option -a which is append
+- usermod -G overrides all the supplementary groups of the user to the specifiedgroup of -G  in usermod to append you need to specify the option -a which is append user mod changes the data which can be changed in chage but for another user i think
 - keep in mind in the etc/groups shows the supplementary members and no thte primary members and each primary isnt shown in the file after the line explaining the groups
 - sudo chage -l [user name] lists the current settings for the user which is apparent in the shadow file whihc we explained before 
 - to change each in an interactive form dont write any options and to set 
@@ -430,3 +430,5 @@ Number of days of warning before password expires	: 7
 - whoami shows the user youre logged in as
 - newgrp changes your current primary group to the group specified but the group must be on of the supplementary groups you belong to 
 - ctrl D exits the current group resetting to your primary group
+- gpasswd such as passwd command changes the passwd for the user gpasswd changes the passwd for the group
+- chown changes the file owners and groups owners you can use chown owner:ownergroup and tochange user just write chown owner and for changing a group :ownerg
