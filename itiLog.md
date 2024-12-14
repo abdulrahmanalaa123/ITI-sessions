@@ -432,3 +432,63 @@ Number of days of warning before password expires	: 7
 - ctrl D exits the current group resetting to your primary group
 - gpasswd such as passwd command changes the passwd for the user gpasswd changes the passwd for the group
 - chown changes the file owners and groups owners you can use chown owner:ownergroup and tochange user just write chown owner and for changing a group :ownerg
+
+# 14-12-2024
+
+## permissions
+- first defining chmod and the symoblic permission setting as in chmod
+- dir read is the capability of lsing the folder and for the file its lsing as well as cat on the file
+- and for writing for the file is editing it and for the dir is deleting the dir or creating a new file or deleting a file inside
+- and for the execute on the dir enables you to navigate to the dir by cd and on the file enables you to run it
+
+- the symbolic permissions for the files and directories as explained above
+- chmod u=#,g=#,o=# <file name> for the u is the owner of the file and g is the owner group of the file which usually if not changed is the primary group of the owner that created the file and others is anyone other than these 2 sets
+- now for the rules application it goes in a heirarchy first it sees if youre a a user and applies its permissions if it occcurs it doesnt check for more then if youre a group and lastly the others permissions
+- now defining the permissions in octals which is a binary set representation for the permissions which is a 3 bit set r-w-x 4-2-1 and the sum represents the combinations of these permissions r-x = 5 and combining them into 3 sets of permissions ugo 756 => rwx,r-x,rw- 
+
+***there is a fourth member in the set which is defined by the ACL will be explained later in the course or i would just look it up later today***
+
+- now to apply a deafult permission rules on a files and dirs when creating it is by using umask which is applied to the current terminal session and goes away as soon as you terminate it
+- the umask can be assigned in different ways first is the symbolic as well which replaces the permissions by assigned symbolic rules in the mask for example
+- umask u=rw,g=rwx,o=r this means that any file or dir will be created with the specified rules upon any file creation
+- the numerical is subtracting the specified mask form 777 for example umask 555will result in permissions of 222 which would be w,w,w 
+- you can add the umask to the bashrc so it will be the main parent to all processes that wil be created which will include the said umask add the line umask 0002 to the bashrc
+- keep in mind by default any file creation either by a umask or with the default umask it will never be applied an execute permission (file not dir) its for security reasons which i dont understand why fully ngl
+
+## VI
+- a text editor available on all unix machines and is the only editor available in emergency mode which is the state in which the machine kind of breaks and you have sudo permissions to fix the problems youve encountered using vi
+### modes
+- insert mode
+- command mode
+- last line mode (:) accessible by typing colon in the command mode and pressing enter
+### going into insert mode
+- using i goes into insert mode on the cursor
+- using a goes into isnert mode on the position right next to the cursos
+- using o goes into insert mode on a new line
+- using I goes into insert mode into the beginning of the line
+- using A goes into insert mode into the start of the line
+- using O goes into insert mode into the line above
+
+### command mode
+- using w goes with the cursor forward one word
+- using b is the opposite which is backward one word
+- using 0 moves the cursor to the beginning of the line
+- h is moving left l is moving right j is moving down k is moving up
+- G is responsible for moving to the last line
+- nG is responsible for moving to the nth line 
+- u is responsible for undoing the last operation since the last save
+- ctrl+R is responsible redoing what you have undoed
+- x deletes the current letter on the cursor
+- dd deletes a line
+- dw deletes a word
+- D deletes the rest of the line from the position of the cursor
+- yy copies a line
+- p pastes a line below
+- P pastes the line above the current cursor line
+- s goes into insert and removes the current cursor position and replacing it with the input
+- r replaces the cursor with another without going into the insert mode 
+- to search for a word use /word and press enter for searching for the word pressing n goes to the next word below and for the word above you can use N
+- to substitute you will write :s/<word to replace>/<word you replace with> replaces the first occurence of that word in the lines to replace all occurences you use /g follwing the command to replace all occurences of the word in the line
+- deleted items are put inside the clipboard and you can paste them
+### last line mode
+- :l1,l2 co l3  which means copy for line 1 to line 2 and paste them after line 3
