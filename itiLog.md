@@ -482,7 +482,8 @@ Number of days of warning before password expires	: 7
 - dd deletes a line
 - dw deletes a word
 - D deletes the rest of the line from the position of the cursor
-- yy copies a line
+- yy or Y copies a line
+- yw copies a word
 - p pastes a line below
 - P pastes the line above the current cursor line
 - s goes into insert and removes the current cursor position and replacing it with the input
@@ -490,5 +491,11 @@ Number of days of warning before password expires	: 7
 - to search for a word use /word and press enter for searching for the word pressing n goes to the next word below and for the word above you can use N
 - to substitute you will write :s/<word to replace>/<word you replace with> replaces the first occurence of that word in the lines to replace all occurences you use /g follwing the command to replace all occurences of the word in the line
 - deleted items are put inside the clipboard and you can paste them
+- :w saves file 
+- :q quits file :q! to discard changes
+- ZZ saves and exits the file or :wq or :x
 ### last line mode
 - :l1,l2 co l3  which means copy for line 1 to line 2 and paste them after line 3
+### other text editors
+- gedit is a normal notepad
+- and vim is an improved version of vi which includes a visual mode which is just like the command mode but can select words, multiple lines, etc.
