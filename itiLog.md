@@ -514,3 +514,4 @@ Number of days of warning before password expires	: 7
 - I as well presume that insatlling a package or an app that isnt saved in the common bin directory it needs to be added to the PATH variable 
 
 ***how it is loaded and how it is persistent is related to the bashrc file which is the source for all child bash processes spun up which is a loosely defined by me needs to be looked into***
+- aliases are just a shortcut or a shorthand command  
