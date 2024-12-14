@@ -499,3 +499,18 @@ Number of days of warning before password expires	: 7
 ### other text editors
 - gedit is a normal notepad
 - and vim is an improved version of vi which includes a visual mode which is just like the command mode but can select words, multiple lines, etc.
+
+## variables in bash
+
+- assigning a variable is just like the normal variable assignment but space senstiive x=10 is the correct way while x = 10 wont assign anything to it
+- to access a variable you can use $<varname> to access the variable value inside the command line
+- variables assigned inside the terminal sesison are only temporary for the session only
+- exporting a variable saves the variable locally and it will be accessed i presume by all child processes
+-  opening a new bash which is i think is considered a child terminal process which has its own session
+- global variables as always are conventioned to UPPERCASE SNAKE_CASE as for enviromental varibales
+- global variables predefined in linux $HOME, $PWD,$SHELL (shell location),$USER,$USERNAME 
+- environment variables could be listed by using the env command
+- the $PATH environment is the variable responsible for the paths of all the binaries which could be used inside the terminal reassigning path would make it not possible to run the binaries youre used to running
+- I as well presume that insatlling a package or an app that isnt saved in the common bin directory it needs to be added to the PATH variable 
+
+***how it is loaded and how it is persistent is related to the bashrc file which is the source for all child bash processes spun up which is a loosely defined by me needs to be looked into***
