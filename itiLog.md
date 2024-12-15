@@ -558,3 +558,43 @@ Number of days of warning before password expires	: 7
 - grep and pgrep are one of the only commands that understand regexp while wildcards are understood system-wide 
 
 https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
+
+#### jobs
+- are applications or processes that run inside the terminal and suspends the terminal process or the terminal main thread just as vim, gedit, etc.
+- to stop the job you can stop it using ctrl+z to suspend the job 
+- to show the current jobs running you can do so by typing jobs into the command line
+- running the job as bg suspends the job process
+- to run a job in the bg you can either type bg [job-id] or just add a suffix of the "&" sign for example vim [file] &
+- to run a job in the fg you can type fg 1 which will start a stopped process in the bakcground
+- you can stop and start services an infinite amount of time using bg or fg unless you kill the process
+
+#### standard
+- stdin is the terminal stdin in we're typing in usually
+- stdout is the terminal default output which is inside the terminal itself
+- stderrors are errors predefined inside bash such as permission denied or command not found etc you can check the latest return message using **echo $?** 0 means a successful return
+- redirecting output from stdout to a file you can use ">" to write to a file and ">>" to append the output to the file
+- choosing which method would be the number followed by > or >> as 1> 2>
+- stdin,stderror,stdout are defined in the redirection with 0,1,2 respectively
+- sdin,stderr,stdout are located in /dev/stderror, /dev/stdin, /dev/stdout /proc/self/fd/2 /proc/self/fd/0 /proc/self/fd/1
+- errors are usually redirected to /dev/null , /dev/0  just as an error suppression method
+- mail is used to send mails inside the server users locally 
+- typing 0< redirects the stdin needed to anything
+
+***combining redirections ls -R /etc >> file 2>&1 to redirect the error and the output into the same file***
+
+#### wor character and grep
+- wc -c gets the character count -l gets the line count
+- grep just patern matches 
+
+***can i copy using redirects contents of a file for example echo 0< passwd >> newpasswdcpy or just echo passwd >> newpasswdcpy***
+
+#### pipelining
+- pipeling is just simply taking the output of a command as an input to another command if no input was found if 
+- command | comand 
+- ls | grep file ----
+-  |--------------| (running search of the owrd file on the output of ls)
+
+- ls | grep bash passwd
+-  |--------------------X (here ls output wasnt used since grep used the passwd)
+
+**how would pipelining affect a multi argument command where would it be or it ownt work because it will only work having multiple arguments like mv for example so its not pipelinable**
