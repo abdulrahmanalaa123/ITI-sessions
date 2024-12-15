@@ -515,3 +515,46 @@ Number of days of warning before password expires	: 7
 
 ***how it is loaded and how it is persistent is related to the bashrc file which is the source for all child bash processes spun up which is a loosely defined by me needs to be looked into***
 - aliases are just a shortcut or a shorthand command  
+- environmental variables .profile bashrc 
+- to find the enviromental variables of the bash which defines certain standards if the bash shll initiated can be found under shell variables inside the man bash page
+
+# 15-12-2024
+
+## initialization files
+
+#### profile
+- the profile file contains the initialization file for the system wide scripts on the login command
+- it has the variable PS1 which is responsible for the terminal's cursor look or the prefix of the terminal
+- the profile intiializes the bashrc on login and is by default set to the home dir bashrc 
+- so whatever you want to be a permenant change needs to be put in the bashrc and not the profile because if profile runs bashrc and applies the setting after bashrc would overwrite just after after resetting the shell 
+- # /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
+#### bashrc
+- is the source file that runs whenever a new non-login shell unlike profile which is ran specifically for login shells
+- bashrc contains a ton of configurations
+- for example applying a permenant configurationby adding it to the bashrc for example a permenant default umask and default aliases
+- the bashrc isnide the /etc/bash.bashrc is applied system-wide onn any new user but .bashrc in the home dir is user specific
+
+***The main difference between either profile or .bashrc and their counterparts of /etc/profile /etc/bash.bashrc is that it is applied system-wide might look into the excution order but i presume is that the global settings are executed first then overridden by the local lets try but i presume /etc/profile -> /etc/bash.bashrc -> ~/.profile -> ~/.bashrc need to test it by appling several print debggin inside the files***
+
+#### process
+- the scheduling algorithm of the cpu is ttime share
+- PR priorities means increasing the privelage of the task to consume more resources than average processes
+- priority number is 20 which is the normal vlaue ranging from 0 to 40 the higher it goes the  least priority it gets 
+- NI is the suffix of the priorty number which ranges from -20 to 20 where -20 NI is higher priority than 20 NI 
+- you can change the priority but using the command **nice -n processname**
+- to apply nice on running processes you need to specify the process id using **renice -n 5 -p [pid]"**
+
+ **why cant we edit the priority right away?**
+- killing a process uses the command **kill** to find the all the signals responsible for killing a terminal you can type kill -l
+- the main tyeps of termination signals are quit (3) kill (9) terminate(15)
+- kill is a force kill process while terminate is the default and it closes processes gracefully unlike kill
+- ps is a command to show a snapshot of the current porcesses running on the shell adding the option -e shows the processes on the system
+- pkill uses the process name to kill a process and it uses that name to kill all instances of that process
+***kernel process has the process id of 0***
+***need to look up the boot process of linux and which services does it neeed in bootstrapping***
+
+#### pattern matching
+- using pgrep is to search and grep processes and -l is to show the name of the processes apeparing alongside the process id where using -x only returns the eact match
+- grep and pgrep are one of the only commands that understand regexp while wildcards are understood system-wide 
+
+https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
