@@ -598,3 +598,53 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 -  |--------------------X (here ls output wasnt used since grep used the passwd)
 
 **how would pipelining affect a multi argument command where would it be or it ownt work because it will only work having multiple arguments like mv for example so its not pipelinable**
+
+# 16-12-2024
+
+## cut
+- cut seperates the file as columns using the delimiter
+- count of hte field using -d for the delimiter if the delimiter is ";" cut -d ";"
+- to choose the field just  use -f (n1,...nk) for example cut -d: -f1,3,4 chooses the fields 1,3,4 after seperating using the delimiter
+## sort
+- using sort seperates tehe file into columns using a delimiter which is assigned using -t such as the cut
+- and choose the field to sort on using -k(n1...nn) 
+- n informs the sorting function that it should sort on numeric values and not on string values
+## tr
+- translate is a ocmmand used in translating characters in which the value to be replaced is placed first tr "-" " " exchanging - with " "
+## inode
+- indoe is the indexing method of linux on each file created to increase the retrieval and management speed of files where it contains the meta data about the file like file type, last edited, etc.
+- all indoes are stored in an inode table on the kernel level
+- each partition is assigned an inode range where mving a file preserves its inode number which is its identiying index assigned to it in the partition
+- while copying creates a new inode number even if its the same or a different partition
+
+***I assume that moving a file is faster than copying it because it removes the location of its pointer and moves it to another file but its location inside the storage device isnt changed at least thats what's implied from what he said or what i understood needs to be looked at***
+
+- you can view the meta data about the file using "stat command" of the file or directory
+
+## softlink
+- soft links are shortcuts that points to the file applying permissions or operations to the soft link is directly assigned or performed on the original file 
+- the symbolic link is just an access method located in a different place than the original file it has no control over the file 
+- and removing the original file wouldnt  affect the soft link and would make it simply point to nothing
+- you can assingn a soft link by using the command sl <filename>
+## hardlink
+- is simply a pointer pointing at the data inside the inode table which points to the address of the data in my storage devices each file's metadataa has the amount of links it has once the links goes to 0 the file gets deleted
+- so 2 files which are essentially 2 pointers each having different inodes because they are different pointers which are different files so they have different inodes which point to the file which has an inode number in itself.
+- so when the links goes down to 0 which is apparent in the file's meta data the file gets discarded
+- f1 f2 points to the same fiel which is file1 stat on the f1 shows the links and meta data for f1 and removing f1 would remove the link
+
+## find, locate
+- locate uses a database of files which contains files and folders which doesnt require execute access on directories to add them to the db and its faster than find and its updated every 24 hrs
+- find recursively search for all the files in the system which isnt as fast as locate but is more fine-grained you can use several critieias to find a file which will return the exact file you're looking for
+
+## archiving and compression
+- archiving is just bundling the files and folders for archiving or backup purposes and its just saved as a bundle and is used to backup the file
+- tar -tf file.tar "f flag is put at the end because its the flag that takes the input of the file name"b
+- -x debundles the file where -t can list the contents of the tar file and -c is responsible for creating a tar file
+- compressing is reducing the size fo the file and bundling them as well where i presume it doesnt allow it to be read right away for example using cat it will be encrypted keywords yet zcat decompresses and views the compressed file
+- you can use compress keep in mimnd ocmpress,gzip,bzip2 replaces the file specified  and doesnt create a new one while tar creates a new file and the file is appended with the extension .Z using compress and .gz with gzip and bzip2 with the extension of .bz
+- compress is currently deprecated because of low compression ratios
+- to view every compressed file in the each using their respective cat commands 
+- keep in mind compress,gzip,bzip2 cna only compress files
+- but zip creates an archivwe and compresses files as well as it can compress directories as well and its the most commonly used compressing 
+- unzip -l views the contents of the zip file without actually extracting it
+- 
