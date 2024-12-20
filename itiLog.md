@@ -647,4 +647,59 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - keep in mind compress,gzip,bzip2 cna only compress files
 - but zip creates an archivwe and compresses files as well as it can compress directories as well and its the most commonly used compressing 
 - unzip -l views the contents of the zip file without actually extracting it
-- 
+
+# 18-12-2024
+
+## bash intro
+- we're first taking a linux recap but most of what he said was said either in the linux 1 lectures or ive seen in the redhat course im taking
+- split command splits the file into lines, bytes, etc.
+### sed
+- sed is the streamlined editor which manipulates text on files and doesnt edit the original file
+- sed copies the file in the  buffer where each element is a line i presume he said he saves it into a buffer
+#### Actions
+- print p
+- delete d
+- replace s/old/new/g
+- sed's default action for any line is print the line to suppress the default behaviour you can type -n
+#### addressing
+- you can address a line 1,2,$
+- you can address a range of lines with n1,n2 from n1 to n2 from line n1 to last 2,$
+- addressing using a pattern you can use /pattern/
+
+- to type a sed command you need to type sed '{Addressing}{Action}' <filepath> 
+- for example sed -n '1p' <file> which means print the first line of the file and suppress the default action
+- you can mix and match addressing for example mmix ranges starting from a line to a pattern you can type '1,/pat/d' 
+- you can delete a line or a range of lines or even a pattern with and keeping the default behaviour will print all the lines except the lines matching the addressing method 
+- -e is extending the numbers of addressing and actions on the asme file
+### awk
+-  
+# 19-12-2024
+
+## Shell scripts
+- bash script is an interpreted language and not a compiled language the interpreter exists inside the shell
+- most user interactive scripts that needs choices are not recommended to be used in bash
+- shell variables are dynamically alocated and can n=hold any type
+- to print a varibale you can access its value using $<varName>
+- export exports the variable to be visible to all the child shells but isnt persistent yet to be persistent you simply may add it to bashrc or the environmental variables however you want
+- side note you can use ps -f to view the parent process id and the processes running and you can use which <command name> to find the location of the command
+- to prompt the user for an input and use the stdin and store it in a variable you can use read <varName>
+- when scripts are ran they run in a  bash child process and not the main bash shell you're using
+- sourcing means to run the shell sciprt in the running shell process to do it you can type source "script absolute path or relative path"  or . "script absolute paht or relative path"
+- to concatenate values to a variable you can reassign the varibale by typing "<varname>=<varname>"string to concat"" 
+- you can typeset variables to define the static types and standardize expressions performed on it like an integer where a plus would sum and in a string it would concat so to do so you can type "typeset -i <varname>" to ensure its an integer specified by the option -i for a float you can type set with -f  
+- let followed by let i=5+1 will also mean an arithmetic operation as well as you can type "5+1" between quotations to ensure its an arithmetic operation which is wierd you can also type ((<varname> = <varname> + 1))
+- to access the arguments of a file you can use the # to get their number or use $ to get the actual list and $1,$2 etc. to access the arguments and the file name is the $0 argument list
+- to print the return value of the previously ran scrip is with echo $? 
+- to get the user's input and getting space seperated variables all at once for example prompting the full name "read first second third" will save the space seperated name into each one repsectively
+- the read value of the user's input it will be saved in a varibale called $REPLY
+- and to print the prompt as well as getting the input right away you can type read <varname>?"prompt needed"
+- single quotes are a string which has no escapae unlinke duoble quotes where you can mention the variable inside it "hello $x" parses the $x and gets the variable value
+- back ticks extract the command's output inside it as a formatted string but it can only work in a double quotations and no ta signle quotation string
+- preceeding the variable inside double quotes discards the variable and prints it simply as a string 
+- so if is followed by a command where if it ran then its true although it returns 0 which is weird i think
+- writing in the if is followed by a command like test or running a command with exit status of 0 means it ran successfully 
+- the square brackets in itself is a command and the expression is the arguments passed to that command which returns true or false evaluating the expression inside  
+***now the question is how does square brackets command evaluate the 0 value into true which is insane to me***
+- string evaluations are done by using string1 = string2  -nstring1 means the string isnt empty and -zstring means check if its an empty string
+- using test to compare values which is in itself a command you can type test followed by a binary operation followed by options like -eq -gt -lt -gte -lte -o for or -a for and -n i think is for not
+***these expressions of comparison arent a reference is just a reminder probably got it wrong and gotta look it up whenever i use it***
