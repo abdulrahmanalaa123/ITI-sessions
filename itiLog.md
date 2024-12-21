@@ -703,3 +703,59 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - string evaluations are done by using string1 = string2  -nstring1 means the string isnt empty and -zstring means check if its an empty string
 - using test to compare values which is in itself a command you can type test followed by a binary operation followed by options like -eq -gt -lt -gte -lte -o for or -a for and -n i think is for not
 ***these expressions of comparison arent a reference is just a reminder probably got it wrong and gotta look it up whenever i use it***
+# 20-12-2024
+- Apache is a software foundation that supports several projects and isnt just a company that provides http server only
+## APACHE http server
+- http servers are based on the client server model
+- while mqtt is a protocol based on the pub-sub model 
+- to perform the pub sub usage using http you can it using polling i think in which you keep requesting new info from the server if found
+- status codes and optional return body are returned in the response of the server 
+- post requests isnt best practice sending data using query params for the data you're trying to send and put in the request payload
+- 
+### URLS
+- the url consists of a protcol://hostname/path?query
+
+# 21-12-2024
+
+## bash
+### case
+- case is the switch case inside bash shell where you can break the case command using ";;" breaking going into the next cases
+- case var in val1) ;; val2) ;; or using star for the default condition
+- to close the case you write it in reverse esac
+- you must use ;; to specifically specify the end of a  given case using break only wouldnt compile because its not given a sign of finishing the given case
+#### meta characters
+- star is used for matching 0 or more characters
+- ? is to match one char
+- square brackets are used to match only one char in a given range of characters or a specific set of characters
+- square brackets characters are implicitly or'd unlike regex where it is required to specify an or operation if needed
+- adding brackets () means applying the the prefix to the given pattern unlike just adding it before will look for specific things before the pattern
+- @(pat) means looking for only one occurence of the given pattern
+- +(pat) means looking for the pattern's occurence one or more times similar to the star but the difference is the star applyies zero or more times
+- !(pat) matches any string than that that contains the pattern
+- "shopt -s extglob" to add the pattern matching using brackets, etc. to your bash shell if its not currently supported by your version
+
+### while loops
+- while command just like an if command takes in a command and checks the return value of the command
+- while <command> do done
+
+### until loops
+- looping until is quite the opposite of while while is basically while true
+- and until for an infinite loop you can type until false
+- until just like if and just like while takes in a command for the conditions and not a boolean statement
+
+### for 
+- for in is to loop on space seperated values will be counted as an array i presume
+- to substitute a command with a value as a list for you can type the command inside back ticks you can substitute it as well with $() with the command inside 
+- keep in mind that this is for in and not just a for loop
+### select
+- to type the select statement is loopoing for selecting in an array of space seperated vlaues and wont sdave the value in x unless it is contained inside the array 
+- the syntax for select is **select x in <space seperate values>do done** 
+- seelct is oftenly used alongside case functionality and the break case is inside after performing my operation on my different valued array 
+- breaking any loop can be done by using break; but to break cases specifically you must use ;; using break inside a case alongisde a loop will close hte loop
+
+### shifting
+- shifting shifts the arguments list from the left by 1 which gives you several interesting methods to loop over the arguments list using just **for ;** you can loop over the arguments lilst and by shifting them it will stop running when they're all done
+- you can access the last element by using while and the length is $# === 1 after shifting all and breaking on the last element
+
+### break
+- break takes an argument which is the number of nesting given where for example if you have 3 nested loops you can leave all 3 by breaking using break 3;
