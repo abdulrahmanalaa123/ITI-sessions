@@ -747,6 +747,14 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - for in is to loop on space seperated values will be counted as an array i presume
 - to substitute a command with a value as a list for you can type the command inside back ticks you can substitute it as well with $() with the command inside 
 - keep in mind that this is for in and not just a for loop
+- to loop over certain numbers you can use seq ***for i in $(seq 1 $END)***
+or you can use
+```
+	END=5
+	for ((i=1;i<=END;i++)); do
+	    echo $i
+	done
+```
 ### select
 - to type the select statement is loopoing for selecting in an array of space seperated vlaues and wont sdave the value in x unless it is contained inside the array 
 - the syntax for select is **select x in <space seperate values>do done** 
@@ -759,3 +767,19 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 
 ### break
 - break takes an argument which is the number of nesting given where for example if you have 3 nested loops you can leave all 3 by breaking using break 3;
+
+### arrays
+- arrays can hold a max of 1024 elements ranging from 1 mgb to 4 mgbs of data either chars or integers so arrays are defined by default with a size of 4mgb you dont define the size of an array or the length its always 4mgbs of data setting the defined size of an array is useless its size is determined by the amount of elements inside the array
+- to define an array element you create an array and ***arr $arr[0]=val $arr[1]=val2***
+- to access the array elements you can access it using ${} only i tested using different methods and didnt work
+- looping over the array can be done using ***for i in ${!array[@]}*** 
+
+### functions
+- functions are declared by declaring function and function name 
+- functions can accept any number of arguments and it isnt defined in the function declaration but cant be validated checking the arguments size
+- to call a function with towo arguments you can do that using ```functionName var1 var2``` 
+- you can call a script and it be defined as a function inside your current running script and the command will be defined i presume either set it inside a vraible or just call it inside the current running script dont know yet
+### debugging
+- to run the script in the debugging mode you can include -x after the shebang inside your current running script 
+- after including the debugging you can suppress the debugging statements using set -x where it will supress the debugging messages for all of the commands located avobe the set -x line
+- 

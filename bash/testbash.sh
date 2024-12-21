@@ -1,13 +1,16 @@
 #!/bin/bash
-typeset -i v
-v=0
+typeset -i arr[1200]
 
-for i;
+
+for i in $(seq 1 1200)
 do
-	echo "did it once"
-	echo "i's value is $v"
-	echo $i;
-	shift;
-	v=$v+1
+	arr[$i]=$i
+done
+#echo $arr
+#echo ${arr[1120]}
+for ele in ${!arr[@]}
+do
+	echo "index is $ele"	
 done
 
+echo ${arr[@]}
