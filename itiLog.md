@@ -782,4 +782,42 @@ or you can use
 ### debugging
 - to run the script in the debugging mode you can include -x after the shebang inside your current running script 
 - after including the debugging you can suppress the debugging statements using set -x where it will supress the debugging messages for all of the commands located avobe the set -x line
-- 
+
+# 27-12-2024
+
+## version control
+- all of what have been said is the benefits of version control systems like branches , versions, concurrency in working , merging, etc.
+
+## ssh
+- authorizing your machnine as an ssh available machine is by adding your pulbic key in the host machine youre trying to connect to by creating an ssh keygen pair
+
+
+## basic commands and good to know 
+- to reset staging items put into the staging area can be done by git restore --staged <fileName>
+- to ammend a commit to another instead of creating a new commit you can type git commit ammend which will overwrite the last commit and change its commit id and use it as the last commit
+- git reset --soft HEAD^ delete the commit and takes it back to the staging area
+- git reset --soft HEAD^^ delete the last 2 commits and takes it back to the staging area of the commit before last and deletes the last commit completely 
+- git reset --mixed (dont understand it)
+- git reset --hard HEAD^ revert to the last commit and deltes its staging as well sth like that 
+
+# 28-12-2024
+
+## Version control the real thing
+- branching out is copying the original branch which is the master or main depending on the original branch of the repo
+- mainly branching is used for features adding new features, etc.
+- to create a new branch you can type git checkout bracnch name
+- <git branch <name>> new branch <git checkout <name>> move to branch <git checkout -b <name>> create and switch <git branch> list brnaches
+- creating a branch copies the current branch youre standing in not always the main or master
+- <git branch -r> lists remote branches and using -a lists all of them together
+- you'll realize the remotes/origin/HEAD -> origin/main mean that the head of the repo is pointed at the origin which means that the repo by default is stuck on the latest main commit and isn't concerned by other branches
+- to switch heads on local just simple by checking out using git log after switching the branch will show you all the head sharing branches which are standing on the latest commit of the branch you're standing on
+- to delete a remote branch <git push origin :<name>> will delete the branch or using a more verbose --delete
+- git branch -d <branch name>
+- origin is an alias or a tldr for the link for the hub or repo you're using 
+- for example you can use two repos one named origin and one named any other thing you can add onto your repo
+- merging is the idea of merging all the changes in a feature branch for example into another branch all in one commit which is usually a hefty commit and needs a ton of mesages to understsand the changes merging 
+- rebasing is replacing the original head to be the origin of my current branch constantly rebasing is to keep up with the master branch or the main branch for example master is ahead of me by 3 commits rebasing to the master will change my base to be the base of the latest master branch commits
+- in real life situations merging simply adds all the commits you did on your branch merging them into the branhc youre merging into so imagine you have 50 commits and merging them into the master branch you will lose track of what to do soyou just simply squash your commits to one then merging will merge it infront of the master branch and adding all your changes into one commit which is much neater and simpler to handle
+- git fetch gets the latest updates from the remote repository and you need to merge the hcanges to your local repository git pull typically shorthands these updates and does the fetching and merging in one step
+
+***versioning needs to be revised because i slept through it a bit***

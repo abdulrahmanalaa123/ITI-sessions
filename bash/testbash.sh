@@ -6,11 +6,10 @@ for i in $(seq 1 1200)
 do
 	arr[$i]=$i
 done
-#echo $arr
-#echo ${arr[1120]}
-for ele in ${!arr[@]}
-do
-	echo "index is $ele"	
-done
+
+#for ele in ${!arr[@]}
+#do
+#	echo "index is $ele"	
+#done
 
 echo ${arr[@]}
