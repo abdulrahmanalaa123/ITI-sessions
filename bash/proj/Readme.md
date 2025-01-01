@@ -53,6 +53,7 @@ DDL
 1) create table
 2) List table"s"
 3) drop table"s"
+4) update table's metadata
 
 DML
 4) insert data into table
@@ -72,8 +73,11 @@ enter id
 update
 enter data 
 ```
+
 advanced
+
 alter table metadata
+
 # Metadata for every table
 
 - table name

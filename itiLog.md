@@ -442,9 +442,9 @@ Number of days of warning before password expires	: 7
 - and for the execute on the dir enables you to navigate to the dir by cd and on the file enables you to run it
 
 - the symbolic permissions for the files and directories as explained above
-- chmod u=#,g=#,o=# <file name> for the u is the owner of the file and g is the owner group of the file which usually if not changed is the primary group of the owner that created the file and others is anyone other than these 2 sets
+- chmod u=#,g=#,o=# `file name` for the u is the owner of the file and g is the owner group of the file which usually if not changed is the primary group of the owner that created the file and others is anyone other than these 2 sets
 - now for the rules application it goes in a heirarchy first it sees if youre a a user and applies its permissions if it occcurs it doesnt check for more then if youre a group and lastly the others permissions
-- now defining the permissions in octals which is a binary set representation for the permissions which is a 3 bit set r-w-x 4-2-1 and the sum represents the combinations of these permissions r-x = 5 and combining them into 3 sets of permissions ugo 756 => rwx,r-x,rw- 
+- now defining the permissions in octals which is a binary set representation for the permissions which is a 3 bit set r-w-x 4-2-1 and the sum represents the combinations of these permissions r-x = 5 and combining them into 3 sets of permissions ugo 756 =` rwx,r-x,rw- 
 
 ***there is a fourth member in the set which is defined by the ACL will be explained later in the course or i would just look it up later today***
 
@@ -489,7 +489,7 @@ Number of days of warning before password expires	: 7
 - s goes into insert and removes the current cursor position and replacing it with the input
 - r replaces the cursor with another without going into the insert mode 
 - to search for a word use /word and press enter for searching for the word pressing n goes to the next word below and for the word above you can use N
-- to substitute you will write :s/<word to replace>/<word you replace with> replaces the first occurence of that word in the lines to replace all occurences you use /g follwing the command to replace all occurences of the word in the line
+- to substitute you will write :s/`word to replace`/`word you replace with` replaces the first occurence of that word in the lines to replace all occurences you use /g follwing the command to replace all occurences of the word in the line
 - deleted items are put inside the clipboard and you can paste them
 - :w saves file 
 - :q quits file :q! to discard changes
@@ -503,7 +503,7 @@ Number of days of warning before password expires	: 7
 ## variables in bash
 
 - assigning a variable is just like the normal variable assignment but space senstiive x=10 is the correct way while x = 10 wont assign anything to it
-- to access a variable you can use $<varname> to access the variable value inside the command line
+- to access a variable you can use $`varname` to access the variable value inside the command line
 - variables assigned inside the terminal sesison are only temporary for the session only
 - exporting a variable saves the variable locally and it will be accessed i presume by all child processes
 -  opening a new bash which is i think is considered a child terminal process which has its own session
@@ -534,7 +534,7 @@ Number of days of warning before password expires	: 7
 - for example applying a permenant configurationby adding it to the bashrc for example a permenant default umask and default aliases
 - the bashrc isnide the /etc/bash.bashrc is applied system-wide onn any new user but .bashrc in the home dir is user specific
 
-***The main difference between either profile or .bashrc and their counterparts of /etc/profile /etc/bash.bashrc is that it is applied system-wide might look into the excution order but i presume is that the global settings are executed first then overridden by the local lets try but i presume /etc/profile -> /etc/bash.bashrc -> ~/.profile -> ~/.bashrc need to test it by appling several print debggin inside the files***
+***The main difference between either profile or .bashrc and their counterparts of /etc/profile /etc/bash.bashrc is that it is applied system-wide might look into the excution order but i presume is that the global settings are executed first then overridden by the local lets try but i presume /etc/profile -> /etc/bash.bashrc -` ~/.profile -` ~/.bashrc need to test it by appling several print debggin inside the files***
 
 #### process
 - the scheduling algorithm of the cpu is ttime share
@@ -572,13 +572,13 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - stdin is the terminal stdin in we're typing in usually
 - stdout is the terminal default output which is inside the terminal itself
 - stderrors are errors predefined inside bash such as permission denied or command not found etc you can check the latest return message using **echo $?** 0 means a successful return
-- redirecting output from stdout to a file you can use ">" to write to a file and ">>" to append the output to the file
-- choosing which method would be the number followed by > or >> as 1> 2>
+- redirecting output from stdout to a file you can use "`" to write to a file and "``" to append the output to the file
+- choosing which method would be the number followed by ` or `` as 1` 2`
 - stdin,stderror,stdout are defined in the redirection with 0,1,2 respectively
 - sdin,stderr,stdout are located in /dev/stderror, /dev/stdin, /dev/stdout /proc/self/fd/2 /proc/self/fd/0 /proc/self/fd/1
 - errors are usually redirected to /dev/null , /dev/0  just as an error suppression method
 - mail is used to send mails inside the server users locally 
-- typing 0< redirects the stdin needed to anything
+- typing 0> redirects the stdin needed to anything
 
 ***combining redirections ls -R /etc >> file 2>&1 to redirect the error and the output into the same file***
 
@@ -586,7 +586,7 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - wc -c gets the character count -l gets the line count
 - grep just patern matches 
 
-***can i copy using redirects contents of a file for example echo 0< passwd >> newpasswdcpy or just echo passwd >> newpasswdcpy***
+***can i copy using redirects contents of a file for example echo 0 > passwd >> newpasswdcpy or just echo passwd >> newpasswdcpy***
 
 #### pipelining
 - pipeling is just simply taking the output of a command as an input to another command if no input was found if 
@@ -625,7 +625,7 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - soft links are shortcuts that points to the file applying permissions or operations to the soft link is directly assigned or performed on the original file 
 - the symbolic link is just an access method located in a different place than the original file it has no control over the file 
 - and removing the original file wouldnt  affect the soft link and would make it simply point to nothing
-- you can assingn a soft link by using the command sl <filename>
+- you can assingn a soft link by using the command sl `filename`
 ## hardlink
 - is simply a pointer pointing at the data inside the inode table which points to the address of the data in my storage devices each file's metadataa has the amount of links it has once the links goes to 0 the file gets deleted
 - so 2 files which are essentially 2 pointers each having different inodes because they are different pointers which are different files so they have different inodes which point to the file which has an inode number in itself.
@@ -666,8 +666,8 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - you can address a range of lines with n1,n2 from n1 to n2 from line n1 to last 2,$
 - addressing using a pattern you can use /pattern/
 
-- to type a sed command you need to type sed '{Addressing}{Action}' <filepath> 
-- for example sed -n '1p' <file> which means print the first line of the file and suppress the default action
+- to type a sed command you need to type sed '{Addressing}{Action}' `filepath` 
+- for example sed -n '1p' `file` which means print the first line of the file and suppress the default action
 - you can mix and match addressing for example mmix ranges starting from a line to a pattern you can type '1,/pat/d' 
 - you can delete a line or a range of lines or even a pattern with and keeping the default behaviour will print all the lines except the lines matching the addressing method 
 - -e is extending the numbers of addressing and actions on the asme file
@@ -679,20 +679,20 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 - bash script is an interpreted language and not a compiled language the interpreter exists inside the shell
 - most user interactive scripts that needs choices are not recommended to be used in bash
 - shell variables are dynamically alocated and can n=hold any type
-- to print a varibale you can access its value using $<varName>
+- to print a varibale you can access its value using $`varName`
 - export exports the variable to be visible to all the child shells but isnt persistent yet to be persistent you simply may add it to bashrc or the environmental variables however you want
-- side note you can use ps -f to view the parent process id and the processes running and you can use which <command name> to find the location of the command
-- to prompt the user for an input and use the stdin and store it in a variable you can use read <varName>
+- side note you can use ps -f to view the parent process id and the processes running and you can use which `command name` to find the location of the command
+- to prompt the user for an input and use the stdin and store it in a variable you can use read `varName`
 - when scripts are ran they run in a  bash child process and not the main bash shell you're using
 - sourcing means to run the shell sciprt in the running shell process to do it you can type source "script absolute path or relative path"  or . "script absolute paht or relative path"
-- to concatenate values to a variable you can reassign the varibale by typing "<varname>=<varname>"string to concat"" 
-- you can typeset variables to define the static types and standardize expressions performed on it like an integer where a plus would sum and in a string it would concat so to do so you can type "typeset -i <varname>" to ensure its an integer specified by the option -i for a float you can type set with -f  
-- let followed by let i=5+1 will also mean an arithmetic operation as well as you can type "5+1" between quotations to ensure its an arithmetic operation which is wierd you can also type ((<varname> = <varname> + 1))
+- to concatenate values to a variable you can reassign the varibale by typing "`varname`=`varname`"string to concat"" 
+- you can typeset variables to define the static types and standardize expressions performed on it like an integer where a plus would sum and in a string it would concat so to do so you can type "typeset -i `varname`" to ensure its an integer specified by the option -i for a float you can type set with -f  
+- let followed by let i=5+1 will also mean an arithmetic operation as well as you can type "5+1" between quotations to ensure its an arithmetic operation which is wierd you can also type ((`varname` = `varname` + 1))
 - to access the arguments of a file you can use the # to get their number or use $ to get the actual list and $1,$2 etc. to access the arguments and the file name is the $0 argument list
 - to print the return value of the previously ran scrip is with echo $? 
 - to get the user's input and getting space seperated variables all at once for example prompting the full name "read first second third" will save the space seperated name into each one repsectively
 - the read value of the user's input it will be saved in a varibale called $REPLY
-- and to print the prompt as well as getting the input right away you can type read <varname>?"prompt needed"
+- and to print the prompt as well as getting the input right away you can type read `varname`?"prompt needed"
 - single quotes are a string which has no escapae unlinke duoble quotes where you can mention the variable inside it "hello $x" parses the $x and gets the variable value
 - back ticks extract the command's output inside it as a formatted string but it can only work in a double quotations and no ta signle quotation string
 - preceeding the variable inside double quotes discards the variable and prints it simply as a string 
@@ -736,7 +736,7 @@ https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm
 
 ### while loops
 - while command just like an if command takes in a command and checks the return value of the command
-- while <command> do done
+- while `command` do done
 
 ### until loops
 - looping until is quite the opposite of while while is basically while true
@@ -757,7 +757,7 @@ or you can use
 ```
 ### select
 - to type the select statement is loopoing for selecting in an array of space seperated vlaues and wont sdave the value in x unless it is contained inside the array 
-- the syntax for select is **select x in <space seperate values>do done** 
+- the syntax for select is **select x in `space seperate values`do done** 
 - seelct is oftenly used alongside case functionality and the break case is inside after performing my operation on my different valued array 
 - breaking any loop can be done by using break; but to break cases specifically you must use ;; using break inside a case alongisde a loop will close hte loop
 
@@ -793,7 +793,7 @@ or you can use
 
 
 ## basic commands and good to know 
-- to reset staging items put into the staging area can be done by git restore --staged <fileName>
+- to reset staging items put into the staging area can be done by git restore --staged `fileName`
 - to ammend a commit to another instead of creating a new commit you can type git commit ammend which will overwrite the last commit and change its commit id and use it as the last commit
 - git reset --soft HEAD^ delete the commit and takes it back to the staging area
 - git reset --soft HEAD^^ delete the last 2 commits and takes it back to the staging area of the commit before last and deletes the last commit completely 
@@ -806,13 +806,13 @@ or you can use
 - branching out is copying the original branch which is the master or main depending on the original branch of the repo
 - mainly branching is used for features adding new features, etc.
 - to create a new branch you can type git checkout bracnch name
-- <git branch <name>> new branch <git checkout <name>> move to branch <git checkout -b <name>> create and switch <git branch> list brnaches
+- `git branch `name`` new branch `git checkout `name`` move to branch `git checkout -b `name`` create and switch `git branch` list brnaches
 - creating a branch copies the current branch youre standing in not always the main or master
-- <git branch -r> lists remote branches and using -a lists all of them together
+- `git branch -r` lists remote branches and using -a lists all of them together
 - you'll realize the remotes/origin/HEAD -> origin/main mean that the head of the repo is pointed at the origin which means that the repo by default is stuck on the latest main commit and isn't concerned by other branches
 - to switch heads on local just simple by checking out using git log after switching the branch will show you all the head sharing branches which are standing on the latest commit of the branch you're standing on
-- to delete a remote branch <git push origin :<name>> will delete the branch or using a more verbose --delete
-- git branch -d <branch name>
+- to delete a remote branch `git push origin :`name`` will delete the branch or using a more verbose --delete
+- git branch -d `branch name`
 - origin is an alias or a tldr for the link for the hub or repo you're using 
 - for example you can use two repos one named origin and one named any other thing you can add onto your repo
 - merging is the idea of merging all the changes in a feature branch for example into another branch all in one commit which is usually a hefty commit and needs a ton of mesages to understsand the changes merging 
@@ -821,3 +821,44 @@ or you can use
 - git fetch gets the latest updates from the remote repository and you need to merge the hcanges to your local repository git pull typically shorthands these updates and does the fetching and merging in one step
 
 ***versioning needs to be revised because i slept through it a bit***
+
+# 29-12-2024 / 30-12-2024
+
+## MYSQL basics
+
+# 31-12-2024
+
+## Python 
+
+***fetch decode execute interpreters takes longer because it does these three processes on each line***
+***static code analysis tools are the blacokage of interpreting the language or running although she said that its built into the interpreter she said its called the parser***
+***strings by default has the base size which can be found using sys.getsizeof() of 41 bytes which is why she said it was wrapping which might mean the header of the data type defining its a string but thats a fuck ton for no reason might need to check it out***
+***she specified that python has no implicit type casting and using boolean operators i said it would implicitly type cast the values to booleans and she said i cannot explicityly say that***
+- primtive data types ARE NONE, BOOL,STR,INT,FLOAT and non primitive has list,tuples,sets,dicts
+- everything isn python is considered an object
+- comparison in python comapres data types and values (python has no implicit casting unless typing if val)
+
+### truthy and falsey values in python
+- falsey values are empty collections and empty string and 0 and None (I presume that an empty list is truthy in javascript as i recall)
+- truthy are any values other than falsey 
+
+### sizes and primitive data types
+- the size of an integer in python is 28 bytes while an empty list gave me a size of 56 bytes and adidng the first integer gave a size of 88 bytes which is 32 bytes
+***how does python handle different types inside its list?***
+
+#### strings
+- strings are an immutable data type where to do most of hte operations on the string you have to treat it as a list and any changes that could happen should be done by creating a new string
+- you can comprehend the string such as strname[::] to get each chracter of the string or str[::-1] to reverse, etc. 
+- to loop over elements you cna loop by for x in strname:
+- creating a formatted string (template string) is by typing the string normally and adding the placeholder inside curly braces and to format the string you can type string.format(keyword=val,keyword2=val...)
+- rpelacing a character inside a string you can do it using replace
+- string concatenation can only be doen on strings only and you must ensure casting each element into a string before concatenation
+
+### lists
+***lists mutability in python***
+- lists are mutable (kind of questionable) if its mutable which means you can change the pointing easily well definition of mutable and immutable defined as just editing the value is kind of bad definition
+- list slicing is done using [in1:in2] if in2 is not specified you will slice to the end of the list and the same as for the strings you can reverse the array by adding -1
+- to insert an element at a specific index you can do so unsing .insert to add to the end you can list.append and list.remove from the end you can do pop()
+- to sort the list you can say list.sort
+- range retunrs an iterable of numbers and not a list you need to cast it into a list
+***return type of range if its a generator or not do not remember it that well***
