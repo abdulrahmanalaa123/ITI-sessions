@@ -9,5 +9,5 @@ def login(email,password):
         else:
             print("please enter a valid password not less than 8 characters")
     else:
-        print("please enter a valid email password")
+        print("please enter a valid email and password")
     return None

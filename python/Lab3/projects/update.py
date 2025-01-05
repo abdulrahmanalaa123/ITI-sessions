@@ -1,12 +1,11 @@
 import json
 from .select import select_project
+from helpers.projects_val  import parameter_validation
+def update_project(user_id,id,arg_obj):
 
-def update_project(user_id,id,**arg_obj):
+    values = parameter_validation(arg_obj)
 
-    valid_options = ["title","details","target","start","end"]   
-    values = {key: arg_obj[key] for key in arg_obj if key in valid_options}
-
-    if not isinstance(id,int) and not select_project(id):
+    if not select_project(id):
         print("project doesnt exist")
         return None
 
@@ -24,5 +23,5 @@ def update_project(user_id,id,**arg_obj):
                     return None
         file.seek(0) 
         json.dump(curr_json, file,indent=4)
-        print(final_proj)
+
         return final_proj 

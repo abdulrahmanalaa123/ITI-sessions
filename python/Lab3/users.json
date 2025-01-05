@@ -1,17 +1,11 @@
 {
-    "latest_user_id": 2,
+    "latest_user_id": 1,
     "users": [
         {
-            "email": "b@gmail.com",
-            "name": "abdelrahman AJ",
-            "password": "123231241",
+            "email": "abdulrahmanalaa@gmail.com",
+            "name": "Abdulrahman Alaa",
+            "password": "12345678",
             "id": 1
-        },
-        {
-            "email": "bawdlqq@gmail.com",
-            "name": "abdelrahman AJ",
-            "password": "123231241",
-            "id": 2
         }
     ]
 }

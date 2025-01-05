@@ -3,7 +3,8 @@ from .user_management import user_add
 
 
 def register(name,email,password):
-    if validators.name_validation(name): 
+
+    if validators.name_validation(name):  
         if validators.email_validation(email):
             if validators.pass_validation(password):
                return user_add(email=email,name=name,password=password) 

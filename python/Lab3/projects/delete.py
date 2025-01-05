@@ -3,25 +3,30 @@ from .select import select_project
 
 def delete_project(user_id,project_id):
 
-    if not isinstance(user_id,int) and not isinstance(project_id,int) and select_project(project_id):
-        print("invalid project_id")
+    if not select_project(project_id): 
+        print("project doesnt exist")
         return None
 
 
-    with open('projects.json','r+',encoding='utf-8') as file:
+    with open('projects.json','r+') as file:
         curr_json = json.load(file)
 
-        project_list = curr_json["projects"]
-        for project in project_list:
+        for project in curr_json["projects"]:
             if project["id"] == project_id:
-                if project["user_id"] == user_id:
-                    print(f"deleted {project_id} successfully")
-                else:
+                if project["user_id"] != user_id:
                     print("unauthorized to do such operation")
                     return None
-        file.seek(0)  
-        curr_json["projects"] = [project for project in project_list if project["id"] != project_id]
-        json.dump(curr_json,file,indent=4)
 
-        print(f"successfuly deleted project of id {project_id}")
+        vals = [project for project in curr_json["projects"] if project["id"] != project_id]
+        curr_json["projects"] = vals
+        print(json.dumps(curr_json,indent=4))
+        file.seek(0)
+        # there was an error where writing would overwrite the file leaving the last element breaking the json format
+        # another method would be to open the file as simply write and write to it but that would require to save the json
+        # as a local to the function and alot of editing and i didnt wnat to do that
+        file.write(json.dumps(curr_json,indent=4))
+        #truncate specifies that the file size is where the current position is when not given an argument
+        file.truncate()
+        print(f"deleted {project_id} successfully")
         return project_id
+   

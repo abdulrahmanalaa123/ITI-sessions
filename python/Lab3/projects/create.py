@@ -1,11 +1,11 @@
 import json
+from helpers.projects_val import parameter_validation
 
-def create_project(**project_obj):
+def create_project(user_id,project_obj):
     
-    #TODO
-    # create parameter validation
+    project_obj = parameter_validation(project_obj)
+
     with open('projects.json','r+',encoding='utf-8') as file:
-        print(project_obj)
         curr_json = json.load(file)
         project_obj["id"] = curr_json["latest_project_id"] + 1
         #increasing the id to determine the latest user id 

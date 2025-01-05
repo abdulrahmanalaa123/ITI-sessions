@@ -1,5 +1,5 @@
 {
-    "latest_project_id": 9,
+    "latest_project_id": 21,
     "projects": [
         {
             "user_id": 2,
@@ -48,15 +48,14 @@
             "target": 25000,
             "date": "wahtever",
             "id": 9
-        }
-    ]
-}  {
+        },
+        {
             "user_id": 2,
             "title": "Test_Project",
             "details": "blablalbalblabl",
             "target": 25000,
             "date": "wahtever",
-            "id": 9
+            "id": 20
         }
     ]
 }

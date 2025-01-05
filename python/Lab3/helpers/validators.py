@@ -1,5 +1,4 @@
 import re
-import datetime
 
 
 def name_validation (name):
@@ -17,10 +16,6 @@ def email_validation(email):
 def phone_validation(phone):
    return bool(re.fullmatch(r'^(010|011|012)+[0-9]{8}',phone))
 
-#digit validation with isDigit
-#string validation
-def date_validation(date):
-   pass
    
 
 
