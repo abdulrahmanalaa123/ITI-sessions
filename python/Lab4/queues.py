@@ -17,6 +17,16 @@ class queue:
     def __len__(self):
         return len(self.__list)
 
+
+    def create_from_string(inputStr):
+        strList = inputStr.strip('[]') 
+        retQueue = queue()
+        for elem in strList:
+            if elem.isdigit():
+                retQueue.insert(int(elem))
+            else:
+                retQueue.insert(elem)
+        return retQueue
     def pop(self):
         if self.is_empty(): 
             print("no elements to pop :D")
@@ -57,7 +67,7 @@ class queueMaster(queue):
     
     def save():
        with open('queues.txt','w') as file:
-            file.write(f"{list(map(lambda x: x.__str__(),queueMaster.__queueList))}")
+            file.write(f"{list(map(lambda x: str(x),queueMaster.__queueList))}")
     def load():
         with open('queues.txt','r') as file:
             print(file.read())
