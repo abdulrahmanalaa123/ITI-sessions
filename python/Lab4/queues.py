@@ -27,6 +27,7 @@ class queue:
             else:
                 retQueue.insert(elem)
         return retQueue
+
     def pop(self):
         if self.is_empty(): 
             print("no elements to pop :D")
@@ -37,13 +38,14 @@ class queue:
         return popped
 
     def is_empty(self):
-        if len(self.__list):
+        if len(self):
             return False
         else:
             return True
 
 class queueMaster(queue):
     __queueList = []
+
     def __init__(self,name,size):
         super().__init__()
         self.name = name
@@ -58,7 +60,7 @@ class queueMaster(queue):
         else:
             raise QueueOutOfRangeException("queue is full sorry")
 
-
+        
     def get_queue(name):
         for queue in queueMaster.__queueList:
                 if name in queue.name:
@@ -70,8 +72,8 @@ class queueMaster(queue):
             file.write(f"{list(map(lambda x: str(x),queueMaster.__queueList))}")
     def load():
         with open('queues.txt','r') as file:
-            print(file.read())
-            pass 
+            stringList = file.read()
+            queueMaster.__queueList = map()
 
 if __name__ == "__main__":
     myqueue = queue()
@@ -103,4 +105,4 @@ if __name__ == "__main__":
     print("queue2",queueMaster.get_queue("Mohamed"))
     print(queue1)
     queueMaster.save()
-    queueMaster.load()
+    #queueMaster.load()

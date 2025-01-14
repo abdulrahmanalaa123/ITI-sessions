@@ -5,7 +5,7 @@ from helpers.projects_val import date_parser
 from projects.create import create_project
 import projects.select as select
 from projects.delete import delete_project
-
+from projects.update import update_project
 def projects(user_id):
     user = user_id 
 
@@ -56,7 +56,7 @@ def projects(user_id):
                             valid = False
                             break
                     if valid:
-                        create_project(user_id=user,project_obj=input_dict)
+                        update_project(user_id=user,project_obj=input_dict)
                 case "7":
                     projects = select.select_projects()
                     print(projects)

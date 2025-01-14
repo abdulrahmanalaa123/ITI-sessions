@@ -862,3 +862,47 @@ or you can use
 - to sort the list you can say list.sort
 - range retunrs an iterable of numbers and not a list you need to cast it into a list
 ***return type of range if its a generator or not do not remember it that well***
+
+# 2-1-2025
+
+## Python tuples
+- tuples are an immutable data type and has basically the same list operations the only thing is that any element pointer reassigning couldnt be done
+- casting an iterable which takes a sequence returning the iterable type for example a list taking a list to cast it as a list will take the elements and turn it simply into a list casting list and tuples both takes an iterable so they basically perform the same
+```
+list(["hello"]) => ["hello"]
+tuple("hello") => ["h","e","l","l","o"]
+```
+
+***immutable dataTypes are hashed inside python which doesnt make sense kind of? or she says why are immutable immutable***
+***you can use pythontutor to visualize python in memory to learn***
+
+## Sets
+- sets are a mutable datatype which doesnt care about ordering with no indexing done on the data
+- sets arent used for iterations they're mainly used for set differencing and joining,et. and utilizing that the elements is non-repeating 
+
+## dicts
+- Dictionaries are a mutable unordered data type which has o(1) accessign time and ***it wasnt ordered before after py3.6 its an ordered datatype***
+
+## for else
+- the for else syntactic sugar means that if you reach the end of the loop then you should execute the block inside the else statement
+
+## function defintion
+- to define the function as a named variable parameter you can do so by specifying the input as a **inputargs 
+```
+def func(**args):
+	print(args)
+=> {each value is considered a key pair when inputted with a name}
+
+# sepcifying arguments as a ** it defines it as a named parametered function then each input should be named while inputted
+func(name="lsq",bla="wdq")
+```
+- and to define as a variable list input you can define it using *inputargs 
+```
+def func(*args):
+	print(args)
+func("bla",213,12312)
+
+# its interpreted as a tuple because you cant edit the argument list after insertion
+# although you can do so by casting it into a list and use it as one
+=> ("bla",213,12312) 
+```

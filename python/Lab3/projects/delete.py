@@ -19,7 +19,6 @@ def delete_project(user_id,project_id):
 
         vals = [project for project in curr_json["projects"] if project["id"] != project_id]
         curr_json["projects"] = vals
-        print(json.dumps(curr_json,indent=4))
         file.seek(0)
         # there was an error where writing would overwrite the file leaving the last element breaking the json format
         # another method would be to open the file as simply write and write to it but that would require to save the json

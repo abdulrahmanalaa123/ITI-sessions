@@ -29,7 +29,7 @@ def select_projects():
 def query_project(title):
     with open('projects.json','r',encoding='utf-8') as file:
         curr_json = json.load(file)
-        projects =  [project for project in curr_json["projects"] if title.lower() == project["title"].lower() ]
+        projects =  [project for project in curr_json["projects"] if title.lower() in project["title"].lower() ]
         if len(projects):
             return projects
         return None

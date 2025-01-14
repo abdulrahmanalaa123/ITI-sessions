@@ -8,6 +8,7 @@ def create_project(user_id,project_obj):
     with open('projects.json','r+',encoding='utf-8') as file:
         curr_json = json.load(file)
         project_obj["id"] = curr_json["latest_project_id"] + 1
+        project_obj["user_id"] = user_id
         #increasing the id to determine the latest user id 
         curr_json["latest_project_id"] = curr_json["latest_project_id"] + 1
         curr_json["projects"].append(project_obj)
