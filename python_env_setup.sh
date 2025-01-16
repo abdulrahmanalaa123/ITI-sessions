@@ -7,16 +7,15 @@ main () {
 	#if the file contains the -s flag use the default settings
 	if [[ "${@//-/}" =  s ]]
 	then
-		check_dir "default_env"
-		setup
+		init "default_env"
+		activate
 		return 0
 	else
 		echo -e "please enter your env name: "
 		read env_name 
-		check_dir $env_name
-		setup
+		init $env_name
+		activate	
 	fi
-
 
 	select opt in "load" "freeze" "interactive" "return"
 	do
@@ -26,13 +25,13 @@ main () {
 				;;
 			2)
 				freeze
+				return 0
 				;;
 			3)
 				prepping
 				return 0
 				;;
 			4)
-				echo ""
 				return 0
 				;;
 			*)
@@ -42,24 +41,44 @@ main () {
 	done
 }
 
-setup () {
-	# using -m runs the venv module found in the sysfile form python
-	python3 -m venv "$path"
+activate () {
 	# activating the current venv as your main python env
 	source "$path/bin/activate"
 }
 
-check_dir () {
+init () {
 
 	path="$current_dir/$1"
-	echo "$path"
 	if [[ -d $path ]]
 	then
 		echo "already exists"
-		return 1
+	else
+		# using -m runs the venv module found in the sysfile form python
+		python3 -m venv "$path"
 	fi
+	git_ignore $1
+
 }
 
+git_ignore () {
+
+	ignore_path="$current_dir/.gitignore"
+
+	if [[ -e $ignore_path ]]
+	then
+		check=$(grep -o "$1/" $ignore_path)
+		if [[ -z $check ]]
+		then
+			echo "$1/" >> $ignore_path
+		fi
+	else
+
+		git --git-dir "$current_dir/.git" init
+		echo "$1/" >> $ignore_path
+	fi
+
+	echo "all set up"
+}
 
 freeze () {
 
@@ -70,7 +89,6 @@ freeze () {
 }
 
 load () {
-	
 	echo  "please specify your requirements file location and name: "	
 	read req
 	pip install -r $req	
@@ -88,9 +106,10 @@ prepping () {
 				;;
 			2)
 				freeze
+				return 0
 				;;
 			3)
-				break
+				return 0
 				;;
 			*)
 				echo "please enter a valid option"
