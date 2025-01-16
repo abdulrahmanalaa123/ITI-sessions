@@ -906,3 +906,43 @@ func("bla",213,12312)
 # although you can do so by casting it into a list and use it as one
 => ("bla",213,12312) 
 ```
+
+
+# 15-1-2025
+- The constructor in python isnt required for creation of an object its only required for initializing the object instance
+## Testing
+- Unit testing is usually less expensive and easier than end to end testing
+### creating a virtual env
+- to create a python environment you can create it using `python3 -m venv envname)`
+- it would create your own interperter alongside your own pip verseion to run python independtly from your global python versions or environment
+- to activate your venv you can source it in your current bash shell and run `source ./envname/bin/activate`
+- to export your current package you can use pip freeze to your requirements.txt file
+- and to install using your requirement.txt file you can use pip install -r requirements.txt
+- note that you should add your venv directory to your .gitignore by typing the dir name followed by slash `envname/` adding thsi toy our gitignore you deny uploading the env dir and use only your requirements.tx file for managing your library dependencies
+- python has no implicit casting which means strongly typed while loosely typed languages has implicit casting
+
+## doctest
+- using the doctest library you can run test cases using docstrings 
+- to write a test case use >>> followed by the function followed in a new line wiht the expected output
+```
+"""
+>>> sq(10)
+100
+>>> sq(2)
+4
+>>> sq(3)
+9
+"""
+```
+
+- decorator function (HOC) and @decorator annotation need to understand it
+
+## unittest 
+- to simulate function calls or asynchronous requests you can use with patch('file.func') simulating db requests or asynchronous requests where it detaches it from the external dependencies
+- the point of unit testing is to not depending 
+[read the docs](https://docs.python.org/3/library/unittest.html)
+## coverage
+- tests the coverage of your test cases for the code blocks located inside your function that you want to test
+- it returns a report running all your test suite
+### BDD
+
