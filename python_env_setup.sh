@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # running this script should be sourced for it to have effect
-current_dir=$(dirname $0)
+current_dir=$(pwd)
 # put into a function to call it later so all functions would be defined and they are defined in probable order of execution
 main () {
 	#if the file contains the -s flag use the default settings
