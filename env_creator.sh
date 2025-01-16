@@ -18,29 +18,27 @@ main () {
 	fi
 
 
-	while true
-		do
-			echo -e "enter either: \n1)load \n2)freeze \n3)interactive \n4)return\n"
-			read -n1  opt
-			case $opt in
-				1)
-					load
-					;;
-				2)
-					freeze
-					;;
-				3)
-					prepping
-					return 0
-					;;
-				4)
-					echo ""
-					return 0
-					;;
-				*)
-					echo "please enter a valid option"
-					;;
-			esac	
+	select opt in "load" "freeze" "interactive" "return"
+	do
+		case $REPLY in
+			1)
+				load
+				;;
+			2)
+				freeze
+				;;
+			3)
+				prepping
+				return 0
+				;;
+			4)
+				echo ""
+				return 0
+				;;
+			*)
+				echo "please enter a valid option"
+				;;
+		esac	
 	done
 }
 
@@ -80,11 +78,9 @@ load () {
 
 prepping () {
 
-	while true
+	select opt in "install a library" "freeze" "quit" 
 	do
-		echo -e "please choose either:\n1)install a library \n2)freeze \n3)quit\n"
-		read -n1 state
-		case $state in
+		case $REPLY in
 			1)
 				echo "enter library name: "
 				read lib
