@@ -944,5 +944,44 @@ func("bla",213,12312)
 ## coverage
 - tests the coverage of your test cases for the code blocks located inside your function that you want to test
 - it returns a report running all your test suite
-### BDD
 
+# 18-11-2025
+
+## Docker Introduction
+
+- Explainin the vm tax where youre utilizing the hardware you have but deploying a whole vm with its licenses setting up and patching for a signle application to ensure isolation and increases the overhead
+- This is the VM Tax where you need to pay money ensuring the utilization process which was solved by containerization
+** you cant test on servers which is weird **
+**why cant you use ansible for managing and intiializing virtual machines he implied that you can only do them one at a time**
+
+### Containerization
+- containerization is a virtualization technique whicch virtualizes the current operating system running on your host.
+- it virtualizes the main operating system process currently running on your machine
+
+**can you specify resources for any running container?**
+**isolation of virtual machines vs isolation of containers?**
+[Playground website](https://killercoda.com/)
+
+### docker high-level architecture
+
+- docker isnt the containerization application it only manages containers and running saving them into images
+- it uses the client to which is the cli tool which is responsible for providing an interface for the user to interact with the docker CLI
+
+#### container runtime
+- It consists of containerD and runC these are what are used to set up the environment with its own vfs and network interface, etc and running the actual container isolated from the host operating system
+- ContianerD is used for setting up the environment and runC is for actually running the container
+- Docker Daemon is only responsible for managing and saving images and parsing the user input if the image isnt found loally the images is searched for on the docker registery which is dockerhub i presume
+
+### docker command structure
+- docker commands start with docker `object= container or image` `action= run stop restart etc.` `options` `argument[0]=most probably image` `argument[1]=the main command to execute the container on where if closed the container has no purpose to keep runnign thats what i remember`
+
+- the exec acction enables the container to run the command as a different process which isnt related to the main process inside the docker container the container's life cycle is mainly dependant on that main process once it stops or fails the container dies or stops
+
+- docker containers are by default ran as a background process to enable it and use its current shell process oyu add the otpion -it which runs the interactive terminal to reattach the container to your current stdin and stdout and stderroryou can run the container followed by the action attach 
+
+- the commands are either overridden or added to be ran as a different process to when overridden it will be with the process id 1 and when the process exits the container seems it has no reason to keep running so it stops right away
+
+- `inspect` is the command to view extra configurations and infor about the queried container
+
+- `exec` exec should be ran on a running container 
+- you can only remove a container only after stopping it and stopping a container mangaging it with the dependencies idk 
