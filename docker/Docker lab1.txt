@@ -1,0 +1,26 @@
+Problem 1:
+
+- [ ] Run the container hello-world
+- [ ] Check the container status
+- [ ] Start the stopped container
+- [ ] Remove the container
+- [ ] Remove the image
+
+Problem 2:
+
+- [ ] Run container centos or ubuntu in an interactive mode
+- [ ] Run the following command in the container “echo docker”
+- [ ] Open a bash shell in the container and touch a file named hello-docker
+- [ ] Stop the container and remove it. Write your comment about the file hello-docker
+- [ ] Remove all stopped containers
+
+Problem 3:
+
+- [ ] Deploy a MySQL database called app-database. Use the mysql latest image, and use the -e flag to set MYSQL_ROOT_PASSWORD to P4sSw0rd0!. The container should run in the background.
+
+Problem 4:
+
+- [ ] Run the image Nginx
+- [ ] Add html static files to the container and make sure they are accessible
+
+

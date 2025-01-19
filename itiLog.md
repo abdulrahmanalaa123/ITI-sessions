@@ -905,7 +905,6 @@ func("bla",213,12312)
 # its interpreted as a tuple because you cant edit the argument list after insertion
 # although you can do so by casting it into a list and use it as one
 => ("bla",213,12312) 
-```
 
 
 # 15-1-2025
@@ -925,6 +924,7 @@ func("bla",213,12312)
 - using the doctest library you can run test cases using docstrings 
 - to write a test case use >>> followed by the function followed in a new line wiht the expected output
 ```
+
 """
 >>> sq(10)
 100
@@ -933,6 +933,7 @@ func("bla",213,12312)
 >>> sq(3)
 9
 """
+
 ```
 
 - decorator function (HOC) and @decorator annotation need to understand it
@@ -951,15 +952,15 @@ func("bla",213,12312)
 
 - Explainin the vm tax where youre utilizing the hardware you have but deploying a whole vm with its licenses setting up and patching for a signle application to ensure isolation and increases the overhead
 - This is the VM Tax where you need to pay money ensuring the utilization process which was solved by containerization
-** you cant test on servers which is weird **
-**why cant you use ansible for managing and intiializing virtual machines he implied that you can only do them one at a time**
+***you cant test on servers which is weird***
+***why cant you use ansible for managing and intiializing virtual machines he implied that you can only do them one at a time***
 
 ### Containerization
 - containerization is a virtualization technique whicch virtualizes the current operating system running on your host.
 - it virtualizes the main operating system process currently running on your machine
 
-**can you specify resources for any running container?**
-**isolation of virtual machines vs isolation of containers?**
+***can you specify resources for any running container?***
+***isolation of virtual machines vs isolation of containers?***
 [Playground website](https://killercoda.com/)
 
 ### docker high-level architecture
@@ -968,6 +969,7 @@ func("bla",213,12312)
 - it uses the client to which is the cli tool which is responsible for providing an interface for the user to interact with the docker CLI
 
 #### container runtime
+
 - It consists of containerD and runC these are what are used to set up the environment with its own vfs and network interface, etc and running the actual container isolated from the host operating system
 - ContianerD is used for setting up the environment and runC is for actually running the container
 - Docker Daemon is only responsible for managing and saving images and parsing the user input if the image isnt found loally the images is searched for on the docker registery which is dockerhub i presume
@@ -985,3 +987,70 @@ func("bla",213,12312)
 
 - `exec` exec should be ran on a running container 
 - you can only remove a container only after stopping it and stopping a container mangaging it with the dependencies idk 
+
+
+# 19-1-2025
+
+## images
+
+- images are a snapshot from the latest state containers
+- containers are built upon images for example an nginx container needs an ubuntu image adding nginx and commiting that container will create an nginx image that has ubuntu image so commiting and using this image in creating your own web app would be read only and anything you can build open would be rw
+
+- so basically an image is a base you can use as read only and bulding upon it would create another one to be reused by you or even different people by sharing it on the docker registry
+
+- images cant be removed unless all containers running it or using it are removed completely
+- images can be referenced by id and deleting them using it will delete every alias or the command and deleting by name:tag may delete an alias and leaves the actual image
+
+### image commands
+- `image pull` to pull the image from the registry
+- `image push` to push the image to the registry
+- `image rm` to remove
+- `image inspect` to inspect the image
+- `image tag` is changing name or version namae changing a tag for an image creates an alias for the same image with the same image id and doesnt change it or create a new version
+- `container commit` to commit changes done by you on your working container exporting it into an image
+
+
+### dockerFile
+
+build vs runtime in docker
+#### workdir
+- specifying the workdir used inside the image by default its the root directory unless another is specified
+#### add,copy
+- add adds a file to the container from remote repos using http or git
+- copy adds a file to the image or the ran container from local files 
+#### env vs arg
+- arg are arguments used or variables used inside the docker file can be used inside the build only and not used inside the runtime
+- env are defined to be used in both the build time and run time and must be defined with a value and if it has the same name as the arg env has the higher priority and defined inside the env variables inside the running container
+#### entrypoint, cmd
+- cmd is the arguments provided to the entry point if no entry point is provided cmd is ran as its own 
+- entrypoint is the default command ran on the start or as the main pid and can be overriden inside the run command using --entry-point sth like that
+***look all of this shit is fuzzy needs to be revised***
+
+#### exec versus shell
+- exec and shell forms are forms are the forms of typing either the entry point or the cmd 
+- each have its caveats and their ways of typing
+#### multistage building
+- its is used to optimize final image size required for running the final application
+- in case of go you need an image a building for building the go application into a binary file and then no need for a go runtime to run it so you should only build a minimal ubuntu image and contains the binary file only
+
+- using several froms enables multi stage building using the first from to get the image required for building
+- the second from is used from scratch to run the binary which is super minimal just enough to run the binary file and to copy the built file from the first build you can use copy --from=image1 /bin/hello /bin/hello image1 is the alias given in the from keyword
+
+```
+FROM golang:1.23 as image1
+WORKDIR /src
+# copying the main.go in our current dir into /src
+copy main.go ./main.go
+RUN go build -o /bin/hello ./main.go
+
+from scratch
+copy --from=image1 /bin/hello /bin/hello
+CMD ["/bin/hello"]
+```
+
+***port binding happens in runtime and just exposing just adds the port to the exposed ports which are able to be bound***
+
+#### docker push
+- to push an image to your remote registry you need to first specify it first by your account username/image name 
+- to be logged through the cmd using credentials you can log in using login -u username
+- after that you can successfully push your image on to your docker hub account
