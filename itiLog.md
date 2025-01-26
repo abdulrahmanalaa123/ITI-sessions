@@ -1054,3 +1054,91 @@ CMD ["/bin/hello"]
 - to push an image to your remote registry you need to first specify it first by your account username/image name 
 - to be logged through the cmd using credentials you can log in using login -u username
 - after that you can successfully push your image on to your docker hub account
+
+#### docker container inspect
+- you can get the private ip of a docker container using docker container inspect to check its ip in runtime
+- without port forwarding or exposing ports in any kind
+
+# 20-1-2025
+
+## docker storage
+- docker has 3 options of storage 2 persistent options like volumes or bind mounds
+- and one in memory option called tmpfs which stores the container's data inside the host's memory
+### bind mounts
+- linking locations on the container's file system to actual dirs on my host file system which writes to the file with any new file created
+### volumes
+- volumes is a persistent storage solution managed by docker where it simply saves the data to a docker managed location on my host called volume to be able to persist its state
+
+#### volume management commands
+- `docker volume create vol_1`
+- `docker volume ls`
+- `docker volume inspect vol_1`
+- `docker volume rm vol_1`
+- to mount the volume to the container on runtime using `--mount type=volume, src=vol_1, target=/usr/share/nginx/html` the target can be any location on the docker container
+- to mount using any different types just specify the type `--mount type=bind, src` `--mount type=tmpfs`
+- you need to specify the src in both volume and bind types
+
+## docker networks
+- docker networks types Bridge,host,null
+- `Bridge` all containers included are by default able to connect to each other and containers from outside arent able to connect to containers inside the bridge
+- the type is specified by the driver option `--driver=bridge` you can as well specify the subnet when creating the network
+- `network` type null makes the container inaccessible by either the host or other contianers in the same network
+- `host` removes isolation between the docker container network and the host network so it act as the host machine in the sense of the network and can access different containers using their ip addresses if they're using bridge and if they're using host using localhost
+- `network create/inspect/ls/rm/connect/add` just like volumes they have network lifecycle commands and treated as a docker managed objet
+
+# 26-1-2025
+
+## Boot sequence
+1. BIOS/UEFI are stored in the ROM and loaded into the RAM on boot
+2. POST checking the hardware if its running properly is done after loading the bios/UEFI to the RAM  
+3. detect and hand off control to the MBR( master boot record)
+### MBR
+- booting from mbr boots up on two stages using BIOS and not the UEFI while using UEFI boots up directly 
+- The boot loader GRUB2 checks for the current available operating systems and grub `/etc/grub2.cfg` loads the system kernel into memory 
+
+4. systemd is then laoded or running the inti process from `/sbin/init` `/etc/init` `/bin/init`  which is included in `/etc/systemd`
+5. if systemd fails executing a certain service it will go into emergency mode or change the default.target which is the cli or the gui.target and then it goes through the multi-user.target then through each of the targets
+6. it passes the default.target after successfully loading necessary service then multi-user.target
+***note that enabling a serviceaadds the service file to the multi-user.target.wants to the -> /service to run the scrip on load*** 
+## targets
+- mounts are called upon any file system or dev that interacts with the fs 
+- sockets are any file that interacts with the netowrk device ( which donesnt make sens to be called like that)
+- and services are what interacts with applications (also a vague definition doesnt make sense)
+- all of these combined are called targets whcih means they are whats required to be ran inside the target
+## systemd
+- service mask enforces that the service couldnt be manually started whcih creates a symlink between the service file and /dev/null
+- static services are services which are dependent on another which can be enabled to be auto started and can only be started by the service itself or probably forked or sth
+- maybe it is used in the display managers just like he said for example you need audio to build up video
+- sudo journalctl gets the logs of a service in systemd
+### things i dont understand
+- look for systemd isolate and isolation logs out of gnome from graphical.target and goes to multi-user.target
+- recovery.target happens when one fails for example multi-user.target
+- service reload and service restart
+- daemon reload when editing a service using `systemctl daemon-reload`
+### creating your own service
+- `/etc/systemd/system` creating a system file with the extension `.service`
+- creating service files manually is by creating the service files inside the `/etc/systemd/system`
+- structure of a service file
+- to view the configuration service file of the service by doin `systemctl cat service_name`
+- to view the syntax of the configuration file of the service you can do so by `man systemd.service`
+- the user must be specified because the wanted target is multi-user.target specifying its service user
+
+***thats why service users are created without logins because file creations and access needs to be done by said user thats why service users are used which is nice***
+
+```
+# Unit describes the service and dependencies but nothing related ot the actual service runtime
+[Unit]
+#these describe the service runtime specifications
+[Service]
+key=val
+Type=
+User=
+Group=
+EnvironmentFile
+#specifies when is the service needed
+[Install]
+WantedBy=multi-user.target
+```
+## grub menu and config
+- the default config file could be found in `/etc/sysconfig/grub` or `/etc/default/grub`
+- sudo grub2-mkconfig -o /boot/grub2/grub.cfg
