@@ -1142,3 +1142,23 @@ WantedBy=multi-user.target
 ## grub menu and config
 - the default config file could be found in `/etc/sysconfig/grub` or `/etc/default/grub`
 - sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# 27-1-2025
+
+## scheduling 
+- `at` using it to schedule a service its a servivce that uses minutes at least to schedule a job and no secs
+- viewing your current jobs can be done by `atq` 
+- to send mail to your user after running the task by using `at -m`
+- you can escape spaces using backslash `touch file1\ super` will create a file called `"file1 super"`
+- you can allow or deny users to use at by adding the user in `/etc/at.deny` you can use blacklisting in deny and white listing in `/etc/at.allow`
+## crontab
+- crontab syntax hyphens (range) , commas (set), slashes (incrementing)
+- minute hour day Month week  day (1-31) week (0-6) (Sun to Sat)
+- * * * * * means run it by feault every 1 min
+- 1/5 means run from 1 every 5 and for \*/5 means run it every 5 in each unit from now 
+- star specifies now 
+- 1,5 means run on number 1 and number 5
+- and for 1-5 means run from 1 to 5 
+- specifying week day implies that the days and months should meet the day specified to run
+- `L` used in day of the week and day of the month used to specify n to last day to the week
+- `#` used in day of the week for the nth day in teh month
