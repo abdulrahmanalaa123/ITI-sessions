@@ -1176,5 +1176,3 @@ WantedBy=multi-user.target
 - you can assign the selinux to a running script ensuring it runs in the specific process you can use `semanage` and attach the context to the script or file and assign the rules on the directory using `setenforce or semanage` as well dont remember specifically
 - to set the permissive rules of selinux you can change the selinux config file and and changing the enforcing mode of selinux of enforcing and primitive and disabled  if you want to set the current enforcing mod eis done by `setenforcei 0|1|2`
 - the config file could be found in `/etc/selinux/config`and you can find the current ecforce using `getenforce`
-- you can view all your rules with `sebool` although im not convinced
-[LINK SHOWING moving and copying files with selinux contexts attached](https://superuser.com/questions/1347564/mv-vs-cp-what-is-different-about-the-resulting-file)
