@@ -1178,3 +1178,4 @@ WantedBy=multi-user.target
 - the config file could be found in `/etc/selinux/config`and you can find the current ecforce using `getenforce`
 - you can view all your rules with `sebool` although im not convinced
 [LINK SHOWING moving and copying files with selinux contexts attached](https://superuser.com/questions/1347564/mv-vs-cp-what-is-different-about-the-resulting-file)
+[SHOWING THE FACILITIES PRIORITY](https://extreme-networks.my.site.com/ExtrArticleDetail?an=000090331)
