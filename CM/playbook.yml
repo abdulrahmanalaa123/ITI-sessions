@@ -1,0 +1,20 @@
+- name: nginx_playbook
+  host: local_conts
+  tasks:
+    - name: update_cache
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+    - name: copy index.html
+      copy:
+        src: ./index.html
+        dest: /var/www/html
+        owner: root
+        group: root
+    - name: restart nginx
+      service:
+        name: httpd
+        enabled: yes
+        state: restarted
+        use: service        

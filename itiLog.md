@@ -1179,3 +1179,129 @@ WantedBy=multi-user.target
 - you can view all your rules with `sebool` although im not convinced
 [LINK SHOWING moving and copying files with selinux contexts attached](https://superuser.com/questions/1347564/mv-vs-cp-what-is-different-about-the-resulting-file)
 [SHOWING THE FACILITIES PRIORITY](https://extreme-networks.my.site.com/ExtrArticleDetail?an=000090331)
+
+# 30-1-2025
+
+- curly braces in wildcard creates an array of multiple options for examlpe wanting {1,2,3}.bla will look for 1.bla 2.bla 3.bla
+- users by default should have a primary group which defines the file creation ownership  
+- saving in vim without read permissions wouldnt be able to load the file into the buffer unless it has read access and if you only have write access saving would overwrite the file you viewed
+
+## special permissions
+- set user id if put on the file and that file is runnable and you have execute privelage in your group or other when ran your user privilages when running the script would be the same as the owner specifying a script with root as its owner then if the script is ran then the user id would be root. 
+- permissions of setuid and setgid are specified are S capital and s depedning if the owner or group permission had execute permissions in the beginning 
+- if set gid is assigned then the file group permission while running it is the same as the group permissions assigned to it and for directories any file or directory created inside the directory take sthe owner group would be the owner group of said files no matter who created them
+- sticky bits are only put on directories and are ignored on files they are used to prevent different users with teh same write permissions in the same directory from deleting files of a different user
+- using special permissions you can assign by adding a bit to the numeric permissions 7777 if its a file the max numeric value is 6 and if its a directory the max numeric value is 3 
+
+## sudoers
+- the wheel group is the default group assigned by the os and adds to it the base user that has sudo privelages and does all assigning all the commands for it
+
+
+# 2-2-2025
+
+## Ansible 
+- ansible prvides automation for the process of configuring servers and setting them up
+- you can for eample use ansible to create 3 docker read environments and installing each of your servers replicated across multiple devices
+- idempotency Ansible is specialized with idempotency each configuration operation will no tbe repeated although how it is done is not known yet
+***The question is if it runs the command and linux provides the idempotency layer or ansible saves state knowing which configurations are added or changed,etc.***
+- Agentless tools like puppet and chef needs to install a client agent on the target servers you need to configure
+- while ansible needs only to be ssh enabled and no agent or other services required (while oyu still need to configure the public key of the ansible host to be a part of the known hosts and python installed on the target machine) with no dependencies needed
+- daemons are basically said to be the process accepting requests on the server or the recieving side while the client is the tool or interface used to interact or call the request for the ssh daemon.
+***when connecting to an ssh client it is said that you the client wont use the daemon and only use client part and the recieving side will use the daemon (which needs to be understood what is the difference between both)***
+
+***SSH was said to be from user to user and not a machine to machine connection the term is well defined but needs to be further researched yet it explains that fingerprints and know public key hosts for ssh is sunique and installed on each user on its own***
+
+- ansible host is called control node , servers needed to be configured are called targets, or nodes, etc.
+- its not necessary for ansible to connect using fingerprint it can connect using the user name and password
+- chpasswd is used to batch update the users passwords you casn create a onleline password change writing `echo "user:pass" | chpasswd`
+***difference between known_hosts (people who can connect) and authroized_keys***
+- you can securely copy files which most probably the public key you need form the machine to the target machine using `ssh-copy-id -i /.ssh/key.pub target_ip` so which adds it to the authroized keys file using ssh 
+
+## ansible commands
+
+- adhoc commands running a command once and discard it on several machines all at once using ansible
+
+- `ansible` `[pattern]` `-i` `[inventory]`(available list of ips or file of inventory machines (their hostnames)) `--private-key path` `-u username` `-m module`
+ 
+- inventory file you create your inventory file writing by the group name writing the ip each in one new line
+
+```
+[group_name]
+ ip_addr  default_user=ubuntu
+ ip_addr args=vals
+ hostname
+```  
+- the group name can be used in place of the pattern or writing a patternf ro the groups you want to be selected and applying -u wont override the default_user variable and you can assign variables to each group or individual host
+
+- you can type a group with children group names to specify that running the parten group will select all the children in the pattern part `[parent_name:children]` followed by the group names
+
+- youcan view the ungrouped ips using the pattern ungroup instead of a group name
+
+## configuration file
+
+- search order of ansible_coinfig search starts by the `ANSIBLE_CONFIG` environmnental variable followed by the `ansible.cfg` file available in the current working dir then the `~/.ansible.cfg` then `/etc/ansible/ansible.cfg`
+
+```
+[defaults]
+# to set the default variables for your default command
+inventory=path
+user=username
+[privilege_escalation]
+# set the privilege esceelation method
+# you can attach the --become flag after your command to escalate the privilege
+become = true
+#ask the users for passwords if trying to access the privilege escalation
+become_ask_pass = true
+#define the privilege escalation ocmmand used when adding privilege escalation
+become_method = [sudo|wheel....]
+
+```
+
+## playbook
+- is a play or list of plays (tasks or commands) to setup your environmentst
+- but its redundant to use one command for a whole playbook
+```
+# written in YML
+# syntax
+## to start a play in the playbook you should prefix with "-"
+-name:your paly name
+	
+	hosts:all #define group or the pattern you need to select to whom you apply
+	gather_facts: false #disable the fact gathering in your current play
+	#now write the tasks you need to apply to your hosts
+	tasks:
+		-name:task name #task
+			# oyu can type any module name
+			module_name:
+
+```
+***lookup strategy in ansible***
+- running a playbook uses `ansible-playbook playbook_name` it runs first `gathertargets play` to find out several info about the servers youre trying to connectwhich is used to define info to base conditions on while creating your own playbook
+- configuration files are used on both the playbooks and the commands if not then you must specify when running the playbook each of the configurations you need
+
+# 3-2-2025
+
+**templating**
+## variables
+- to write variables in the playbook syntax you can type `{{varName}}`
+- to write variables adding them to your play you can type
+```
+vars:
+  myvar: bla
+  var2: blabla
+  bar3: [1,2,3]
+```
+## Tags in ansible
+- you can assign a tag to a task and either run the playbook with a tag  
+- to specify a tag of tasks to be ran while running a playbook you can add the option `--tag` i think alongside the tag name to only excute said tags
+
+## loops
+- you can type a loop either using a list or a dictionary `[elem1,elem2...]`, `[{prop1:"val",prop2:"val2"},{bla}]` and they are accesssed in the given task by using `{{item}}` or `{{item.prop}}` for dictionaries 
+
+## when
+- when is used with getfacts to get info about the server to connect to
+- when is an if statemnt given to run a task when a condition happens and skip the task when the condition fails and adds it to the skipped values
+
+## register
+- you can add a register property to save the output of the latest command `register: varname`
+- you can either use it as a dictionary to access values or either just viewing it first by using the debug module and passing the register variable name all i guess must be in the same play
