@@ -1296,8 +1296,14 @@ vars:
 - to specify a tag of tasks to be ran while running a playbook you can add the option `--tag` i think alongside the tag name to only excute said tags
 
 ## loops
-- you can type a loop either using a list or a dictionary `[elem1,elem2...]`, `[{prop1:"val",prop2:"val2"},{bla}]` and they are accesssed in the given task by using `{{item}}` or `{{item.prop}}` for dictionaries 
+- you can type a loop either using a list or a dictionary `- elem1 - elem2...]`, `- {prop1:"val",prop2:"val2"} - {bla}` and they are accesssed in the given task by using `{{item}}` or `{{item.prop}}` for dictionaries 
 
+```
+loop:
+- elem1
+- elem2
+- elem3
+```
 ## when
 - when is used with getfacts to get info about the server to connect to
 - when is an if statemnt given to run a task when a condition happens and skip the task when the condition fails and adds it to the skipped values

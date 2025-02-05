@@ -1,0 +1,6 @@
+- name: roles playbook
+  hosts: 172.17.0.3
+  tasks:
+    - name: configure using web role
+      import_role:
+        name: web

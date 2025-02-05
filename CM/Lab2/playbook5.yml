@@ -1,0 +1,25 @@
+- name: practicing resgister
+  hosts: 172.17.0.3
+  tasks:
+    - name: restart systemd service if it exists
+      service:
+        state: restarted
+        name: sshd
+        use: service
+      when: false
+      register: bla
+    - name: install a service
+      apt:
+        name: nginx
+        force: true
+      register: output
+    - name: printing output
+      debug:
+        var: output
+    - name: restart if installed
+      service:
+        name: nginx
+        state: restarted
+        use: service
+      when: not output.failed|bool or output.changed|bool
+

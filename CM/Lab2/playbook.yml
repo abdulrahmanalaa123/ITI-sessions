@@ -1,0 +1,20 @@
+- name: nginx_update
+  hosts: containers
+  tasks:
+    - name: update_nginx
+      tags: update
+      apt:
+        name: nginx
+        only_upgrade: true
+
+    - name: install nginx
+      tags: install
+      apt:
+        name: nginx
+        #latest upgrades the package such as the only_upgrade
+        #but its used as the requirements of the lab i guess
+        state: latest
+    - name: ping_machine
+      tags: always
+      ping:
+

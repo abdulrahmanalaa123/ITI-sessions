@@ -1,0 +1,27 @@
+---
+# handlers file for web
+#
+# restart nginx from install
+# restart nginx from copying
+# restart nginx from templating
+# restart nginx from templating 2
+- name: restart nginx from install
+  service:
+    name: "{{ package }}"
+    state: restarted
+    use: service
+- name: restart nginx from copying
+  service:
+    name: "{{ package }}"
+    state: restarted
+    use: service
+- name: restart nginx from templating
+  service:
+    name: "{{ package }}"
+    state: restarted
+    use: service
+- name: restart nginx from templating 2
+  service:
+    name: "{{ package }}"
+    state: restarted
+    use: serviceng

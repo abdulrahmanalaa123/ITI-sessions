@@ -1,0 +1,21 @@
+- name: looping_play
+  hosts: containers
+  tasks:
+    - name: install packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - nginx
+        - vim
+        - apache2
+
+    - name: install dict
+      apt:
+        name: "{{ item.package_name }}"
+        state: "{{ item.state }}"
+      loop:
+        - {package_name: 'nginx',state: 'latest'}
+        - {package_name: 'vim',state: 'present'}
+        - {package_name: 'apache2',state: 'absent'}
+

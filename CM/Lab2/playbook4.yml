@@ -1,0 +1,22 @@
+- name: several distributions when playbook 
+  hosts: containers 
+  tasks: 
+    - name: download nginx on ubuntu 
+      apt: 
+        name: nginx 
+        state: present 
+        update_cache: yes 
+      when: ansible_facts['distribution'] == "Ubuntu" 
+    - name: download httpd on centos 
+      yum: 
+        name: httpd 
+        state: latest 
+        update_cache: yes 
+      when: ansible_facts['distribution'] == "CentOS" 
+    - name: restart nginx 
+      service: 
+        name: nginx 
+        state: restarted 
+        use: service 
+      when: ansible_facts['distribution'] == "Ubuntu"
+

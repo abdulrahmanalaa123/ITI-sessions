@@ -1,0 +1,14 @@
+- name: variables_play
+  hosts: containers
+  vars:
+    package: vim
+    version: latest
+  tasks:
+    - name: installing_package
+      apt:
+        name: "{{ package }}"
+        state: "{{ version }}"
+    - name: checking_variables
+      debug:
+        msg: "{{ host_var }} {{ group_var }} {{ runtime_var }} {{ package }} {{ version }}"
+

@@ -1,0 +1,6 @@
+[containers]
+172.17.0.2 host_var=90
+172.17.0.3
+
+[containers:vars]
+group_var=80

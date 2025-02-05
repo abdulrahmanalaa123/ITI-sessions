@@ -1,0 +1,34 @@
+---
+# tasks file for web
+#
+# restart nginx from install
+# restart nginx from copying
+# restart nginx from templating
+# restart nginx from templating 2
+- name: installing package
+  apt: 
+    name: "{{ package }}"
+    state: "{{ state }}"
+  notify: restart nginx from install
+- name: copying files
+  copy:
+    src: "{{ item }}"
+    dest: "/home/iti"
+  loop: "{{ copying_files }}"
+  notify: restart nginx from copying 
+- name: copying templates 1 
+  vars:
+    age: "{{ adult.age }}"
+    message: "{{ adult.message }}"
+  template:
+    src: "{{ template_file }}"
+    dest: "/home/iti"
+  notify: restart nginx from templating
+- name: copying templates 2 
+  vars:
+    age: "{{ minor.age }}"
+    message: "{{ minor.message }}"
+  template:
+    src: "{{ template_file }}"
+    dest: "/home/iti"
+  notify: restart nginx from templating 2

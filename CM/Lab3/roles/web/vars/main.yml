@@ -1,0 +1,12 @@
+---
+# vars file for web
+
+package: nginx
+state: latest
+template_file: template1.conf.j2
+copying_files:
+  - file1
+  - file2
+  - file3
+adult: {age: 32,message: 'hello from the other side'}
+minor: {age: 15,message: 'I wish I could share my opinion'} 
