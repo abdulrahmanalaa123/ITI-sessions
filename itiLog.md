@@ -1332,6 +1332,66 @@ loop:
 - it also sends heartbeats alive check for the control plane to the kube api server
 - the kube proxy initializes a network between the pods and each other it can also be installed on the control plane but they are all virtualized to be on the same network so its a virtual network assigned to expose the pods with each other
 
-***does changing of state send a notification request to the kubeapiserver and changes all without writing to the etcd first or just always checking the latest state how doe sit exactly work***
+- does changing of state send a notification request to the kubeapiserver and changes all without writing to the etcd first or just always checking the latest state how doe sit exactly work?
 
 - kubeDNS provides clusters wide dns services
+
+### creating your k8s
+- minikube
+- kubeadm (project)
+### kubernetes order of execution (needs to be further researched)
+- first request is to authenticate the user taken while talking to the api server
+- validate request that its correctly set up 
+#### commands
+- kubectl is the main command line tool to interact with your api server
+- `kubectl get pods` to view your current running pods info about them
+- YAML file for creating the file declaratively (was specified to be idempotent but its not usually necessary but its mostly idempotent)
+- running with the commands for creating adhoc creation or fixes
+
+## YAML structure
+```
+apiVersion: --> apiversion of the object created ?????
+kind: ---> Type of the object Pod,ReplicaSet (workloads)
+metadata: --> metadata of the kind of point created
+ name:  --> name of the object created
+spec: ---> the resource required configuration depends on the type of object
+ containers:
+ -name: ---> name of the container
+  image: --> name of the image 
+```
+### workloads
+- Pod is the smallest unit used inside kubernetes it contains containers but the containers used in the sense of running a container contains several processes sharing the same namespace cgroup, etc. whiere the processes arent provided isolation for the need of each other but the pod can now  manage the process and replicate, etc. which igves higher control yet provides less isolation between processes and each other which isnt exactly needed in that sense
+
+#### Replicaset
+- Is a controller object that creates a desired number of pods managaing lifetime in case of failure syntax
+```
+apiVersion:
+kind: Replicaset
+metadata: --> metadata of the replica set
+spec:
+replicas: --> number of replicas
+selector: --> selecting pods on a specific labels
+	matchLabels --> match the pods according to their label
+		tier: --> tier specifying the label
+template: --> every replica set must have a template to create a replicaset on (you can create a replica set on running pods matching the same template spec)
+ metadata: --> metadata for the each pod created inside the replica set
+  label:
+  tier:
+ spec: --> the spec for the template of the pod needed to be replicated
+```
+
+#### Deployement
+- 
+```
+kind: Deployment
+metadata:
+ name: --> name of the deployment
+spec:
+ replicas: --> number of replicas of pods created
+ strategy: 
+  type: --> the type of startegies used in reacreating when updating or rolling back the updates (Reacreate remove the old replicasets and create new ones, Rolling update )
+  rollingUpdate: --> a property used when using the rollingupdate strategy
+   maxSurge:  --> the max number of pods created when rolling a new update 
+   maxUnavailable: --> the max number of pods you can destroy while rolling a new update to surge a new pod
+```
+- when rolling back pods are scaled down to 0 and then scaled up to an n number in the previous replicasets because deleting the replica set when recreating wouldnt enable the rollback method
