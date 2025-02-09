@@ -1311,3 +1311,27 @@ loop:
 ## register
 - you can add a register property to save the output of the latest command `register: varname`
 - you can either use it as a dictionary to access values or either just viewing it first by using the debug module and passing the register variable name all i guess must be in the same play
+
+
+# 9-2-2025
+
+## Kubern8s intro
+- Nodes are deifned as a signel machine,server virutal machine 
+- you have one control plane and several worker nodes as many as you like control plane might be replicated to achieve high availability for precaution of failure
+- master and workers are controlled y the service or daemon installed to be used as a master node or a worker node
+
+### kubern8es architecture
+- etcd is a highly available keyvalue storage database that stores the cluster's state
+- kube apiserver is the endpoint you use for using kubrn8es pods nodes, containers and initilaizing given specific endpoints 
+- kubectl is the client used to interact wiht the kube apiserver to control the cluster or maybe using the control plane directly but its not feasible to do so 
+- the schedules is the unit responsile for specifying which pod is deployed to which node specified by a set of rules given or by the default set of rules givenby the scheduler 
+- controller manager checks for the node state matching the current node state if any mismatch like assigning a 4 cpu for a pod of a 6 cpu node and checks the vitality of the node and 0 cpus are taken the pods are reinitiated
+- controllers have many types (node controllers, )
+- worker nodes have the kubelet client side agent application used to talk to the kube apiserver to allow it for health checks and status requests as well as management to initiate containers from the requests of the controllers,etc. 
+- mainly the kubelet is the main interaction method between the master and worker
+- it also sends heartbeats alive check for the control plane to the kube api server
+- the kube proxy initializes a network between the pods and each other it can also be installed on the control plane but they are all virtualized to be on the same network so its a virtual network assigned to expose the pods with each other
+
+***does changing of state send a notification request to the kubeapiserver and changes all without writing to the etcd first or just always checking the latest state how doe sit exactly work***
+
+- kubeDNS provides clusters wide dns services
