@@ -1381,7 +1381,6 @@ template: --> every replica set must have a template to create a replicaset on (
 ```
 
 #### Deployement
-- 
 ```
 kind: Deployment
 metadata:
@@ -1395,3 +1394,58 @@ spec:
    maxUnavailable: --> the max number of pods you can destroy while rolling a new update to surge a new pod
 ```
 - when rolling back pods are scaled down to 0 and then scaled up to an n number in the previous replicasets because deleting the replica set when recreating wouldnt enable the rollback method
+
+# 10-2-2025
+
+## DaemonSet
+- ensures that the template pod is exisstent on some or all nodes where the limiting of nodes are the scheduler rules and not specified inside the configuration yml file of the daemonSet.
+- most common use case of a daemonset is the logging pod used to log the pods sttae
+
+## StatefulSet
+- managing pods and replicas and in a stateful manner and assigning sticky identities to each pod and unique netowrk identifiers and unique storage attachments and
+- failures and updates are rolled for each unique pod using the same attachments and each pod or each replicaset is assigned a unique name for example or a pod idk which is which yet 
+- yet its used to replicate and manage stateful apps
+
+## Set based selectors
+- labels are simply a set and its matched in a selector when the 
+## Services
+- exposing a group of Pods over a network using a selector 
+- which acts as a load balancer for my pods and a unified single endpoint
+- it has several types (Cluster IP,Headless, Node port,LoadBalancer)
+
+### Cluster IP 
+- exposing the traffic of several pods on a single hostname which is the service or the service ip instead of accessing each pod with its own ip address
+- you need to specify in the pod or replicaset port routing exposing pods on a specific port needed 
+- the routing of traffic between each pod and which will take the next request would be the function of the service and not the pods
+- keep in mind that contianer network assignemnt and port forwarding is done by default in the pods and talking to the pod is done instead fo talking to the container directly and its exposed to the pod to the same network interface becuase all the containers are sharing the same netowkr interface isolated by the pod on the node
+
+### Headless Service
+- Headless service is the same as the 
+### NodePort
+- routes ports from external traffic to internal nodes configuring the ports to listen on the specified Nodeport property
+### LoadBalancer
+- ingress manages routing names and paths which redirects traffic to a specific service which is then configured ????
+- would initializing the service with the loadbalancer type negate the need of a loadbalancer or not
+
+### External Name
+- needs to be understood it only has the property external domain name
+- which i dont understand
+### Syntax
+```
+apiVersion: --> a version string v1
+kind: Service
+metadata: --> metadata about the service
+ name: --> name of the service used as a hostname when rerouting traffic using the service name exposition
+spec:
+ type: --> type of the service (Cluster IP,Headless, Node port,LoadBalancer)
+ clusterIP: None --> specified with none to specify a headless service
+ selector: --> the selector to apply the service to how to expose it
+  selector_name: --> it could be name,tier,label,etc. smoething to match pod, certain pods
+ports: --> specifying ports that will be routed but doesnt expose ports or forward any of them it acts as a guide and speifies where traffic would go from and where would it go to 
+ - port:80 --> port accessed with the hostname of the service
+   protocol: --> is defined in the LoadBalancer
+   nodePort: 31333 --> port exposed to the public traffic to access a specified port on the service layer wrapping the pods with the target port
+   targetPort:8080 --> rerouted port for the pods initiated or replicasets unified by the service (you must specify the target port as the exposed port for the pod or replicaset template when creating)
+```
+
+
