@@ -1,0 +1,14 @@
+# kubectl taint nodes node01 special-node=true:NoSchedule
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerant-pod
+spec:
+  tolerations:
+  - key: "special-node"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+  containers:
+  - name: nginx-pod
+    image: nginx
