@@ -1,0 +1,8 @@
+piVersion: v1
+kind: Pod
+metadata:
+  name: db-pod
+spec:
+  containers:
+    - name: mysql
+      image: mysql:5.7
