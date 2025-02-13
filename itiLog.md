@@ -1431,6 +1431,7 @@ spec:
 - needs to be understood it only has the property external domain name
 - which i dont understand
 ### Syntax
+
 ```
 apiVersion: --> a version string v1
 kind: Service
@@ -1446,6 +1447,126 @@ ports: --> specifying ports that will be routed but doesnt expose ports or forwa
    protocol: --> is defined in the LoadBalancer
    nodePort: 31333 --> port exposed to the public traffic to access a specified port on the service layer wrapping the pods with the target port
    targetPort:8080 --> rerouted port for the pods initiated or replicasets unified by the service (you must specify the target port as the exposed port for the pod or replicaset template when creating)
+
 ```
 
+**how can i deteremine the limits for a current running system or process?**
 
+**if i specify in the resource quota number of delpoyments and pods what if a pod with 3 and 2 and 2 fails and 3 sees that it has an empty slot so it can start the pod**
+
+**what exactly does the throttling mean does it mean halting the process or simply stop incoming requests or what eaxctly**
+
+**why specify that its ignored during execution on node affinity**
+
+**pod affinity is going close to pods i think maybe look it up more**
+
+# 13-2-2025
+
+## MultiContainers
+- is just the idea of having several containers in one pod several containers are given names for example attach a proxy container or attach a sidecar container each of these are conceptual container types and not actually specified inside the yml file
+
+## InitContainers
+
+- these are containers specified in the yml file by `initContainers:` and these are a type of containers that are ran on pod initialization and after successfully exiting the containers list is started running and used as the core functionality of the pod for example a running process such as ssh or nginx
+
+## Probes
+- the probes check certain checks at different stages of the container lifecycle
+- probes are container specific they are applied to containers and not pods
+- k8s have three tyeps of checks (exec,httpGet,tcpSocket)
+
+### Probe checks
+- `exec` runs a command when an exit status of 0 then it succeeds
+- `httpGet` runs a http request at a specified path and port number and with a status code of 200+ <400 then it succeeds
+- `tcpConnection` listens at a socket and suceeds if the connection is open at that specific port
+
+### Pobe configurations 
+- `successThreshold` applies the rules of the probe type after success counts minimum is 1 for sucess and liveness
+- `terminationGrace` applies a minimum amount of seconds for the container to fail and stop not to stop it abruptly
+- `failure threshhold` start restarting after the number of failures of the specified probe
+- `initialDelay` delay of executing the check on the first time 
+- `PeriodSeconds` used in periodic checks such as liveness and readiness the amount of seconds between each check and the next
+
+### StartupProbe
+- Runs on the start of the contianer to let it be live and ready to recieve requests
+### LivenessProbe
+- Runs on periodically during the lifetime of the container and when it fails it restarts the container and keeps checking
+### ReadinessProbe 
+- Runs periodically and checks the container is ready for accepting requests it means it isnt ready to accept requests but yet it doenst need to be restarted and needs to be solved for example stopping traffic because sending a requests has a huge delay so stop the incoming requests yet dont restart the container
+
+## Commands and args
+
+- commands are overriding the entrypoint for the image of the container created
+- args are the arguments passed to the command written inside the container
+- if args are passed it doesnt overwrrite i presume the entry point yet it passes theses arguments to the entry point of the container and if sepcified a cmd it will probably override it (these are all assumptions and needs further teesting)
+```
+# shell form and exec form
+command:
+ - sh
+ - -c
+# or
+command: ["/bin/sh","-c"]
+# shell form and exec form
+args: ["echo hello"]
+# or
+args:
+ - echo hello
+```
+
+**you can view the output of the pod you're targeting by kubectl logs pod-name**
+
+
+## Environment variables
+
+- you can pass environment variables to your container just like passing your environment variables to the container in teh dockerfile
+```
+env:
+ - name: name
+   value: value
+```
+
+## ConfigMap 
+- ConfigMap is a non-encrypted environment variables sharing entity that is shared across the namespace as well and can be created as an entity on its own
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+# probably its treated as a json object when parsing from yml to json
+data:
+  key: value
+```
+- calling the configMap is done in the same namespace and cant be done across namespaces
+- syntax for calling the configMap is
+
+```
+envFrom:
+   configMapRef:
+	name: configMap-name
+# or 
+
+env:
+  - name: bla
+    valueFrom:
+      configMapKeyRef:
+	name: configMap-name
+	key: country
+
+# where from the first you call country by its key name and value
+# in the second option you can call the value of country and set it into bla environmental variable
+```
+
+## Secrets
+- secrets are the same as configmaps yet its content must be encoded to base64 and not encrypted for anyone to see the file must decode the values ifrst to view it
+- secrets are used with tokens and certificates becuase they contian mainly special characters and you need to encode it to not break the yml file
+- `kubectl create secret` 
+
+```
+evFrom:
+  - secretRef:
+	name: secret-name
+env:
+ valueFrom:
+  secretKeyRef:
+    name:
+    key:
+```
