@@ -1570,3 +1570,127 @@ env:
     name:
     key:
 ```
+
+# 15-2-2025
+
+## Storage
+- Pod containers isolation are done on the filesystem and namespace yet its not done on the network level they all have access to each other using the shared network interface and listen on the ports of said interface
+- Sharing data between containers can be done using volume mounts there are two types Ephemeral Volumes, and Persistent volumes 
+
+### Ephemeral Volumes
+- Ephemeral volumes are volumes that are initiated with container startup and tied to the container lifeCycle used to share data between containers and not to persist data regardless of the container's liveliness and lives inside the memory of the pod
+
+#### emtpyDir
+- empty dir is the first type of ephemeral bolumes that is always initiated empty 
+
+#### ConfigMap
+- you can use the configMap as the mounted volume and its one of the ephemeral volume types its mounted as a directory and for each key-value pair a file is created with the content of the file are the values of said key 
+- it you can create a configmap with the nginx configuration and mount it to the configuration location 
+- COnfigMaps must be created beforehand to be able to use it as a volume adding a volume doesnt create it right away
+- ConfigMaps and secrets are mounted as a read-only file system with key and value files inside the mountPath
+
+#### Syntax
+```
+volumes are specified inside the spec of the pod either the template spec or the pod spec right away
+spec:
+  containers:
+   - name: bla
+     image: bla
+     volumeMounts:
+	- name: vol-name
+	  mountPath: --> where the colume is mounted inside the container specified
+  volumes:
+   - name: vol-name
+     emptyDir: --> Volume name which has its own properties for each i presume () 
+	sizeLimit: --> specify the size limit for the volume specified
+```
+
+### Persistent Volumes
+- These are persistent volumes with several types used to persist data of a pod or a container to be used for processing later down the line or logging ,etc. 
+- Persistent Volumes are create beforeHand and not create adhocly like the ephermal EmptyDir Storage
+- They can be created dynamically using a template called StorageClass 
+- its requested by the pod creation using a PersistentVolumeClaim (which requests whatever it finds either the same description storage devices or larger if it cant find any or finds less than what's required the pod is waiting pending till it finds a static Volume space with the same specifications is created)
+- which is efficient for reducing the use of useless storage as well as the overhead of management of creating a ton of managed volumes redundantly
+- A cloud solution for provisioning a persistent file system on the cloud can be done using AWS EBS (ELastic Block storage)
+- Persistent volume claim is an entity whcih must be deleted on its own to recover the availability of the storage space (needs to be looked up) 
+- The storage carchitecture is a bit more complicated than simply attaching the volume to the container
+- the persistent volume claim needs to be deattached from the Persistent volume to make the PV available for further use
+
+#### ReclaimPolicy
+- Reclaim Policies are used to determine the avaliability when releasing the volume from the claim what is done after releasing  
+- either retain (default for the persistent volumes created (static)) , delete (default for the dynamic StorageClass), recycle (delete the data)
+- after the delete and recycle the persistent volume is now available for further attachment while retaining the data is retained and the persistent volume isnt available unless managed by yourself
+
+#### AccessPolicies
+- Access Policies are assigned to nodes (Once or many) means many nodes or once Node
+- AccessPolicies and reclaim policies are attached to the persistent volume block
+- RWO (read-write-once),ROX(read-only-many),RWX(read-write-many),RWOP(read-write-only-pod)
+
+#### Syntax
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: 
+spec:
+ storageClassName: --> defining a storage class name would enable creating the pv dynamicaly
+ persistentVolumeReclaimPolicy: ---> reclaim policy for the assigned volume
+ capacity:
+  storage: --> storage size
+ accessModes: --> can take a list and probably selected on the node or the pod with the persisten volume claim specifiying whihc mode
+  - ReadWriteOnce --> can be one of the 4 access modes i believe
+ hostPath: --> may be changed according to the different types of the persistent volumes
+  path: --> the path of the host where you want to create thte volume or mount it 
+```
+
+
+## Security
+- kubectl is responsible for handling the communication between the cluster determining the cluster and the roles assigned for running the command
+- the default location for kubectl config file is in $HOME/.kube or you can assign the environmental variable $KUBECONFIG or pass in the option --kubeconfig
+
+### Syntax for the kubeconfig 
+
+```
+apiVersion: v1
+kind: Config 
+current-context: --> probably the context of the confiugration defining 
+clusters: --> a list of clusters that you can communicate to through kubectl the ip address of your  
+ - name: --> name of the node
+   cluster: --> specifying the cluster specifying the ip of the control plane and where to talk to it
+	certificate-authority: --> the certificate require
+	server: https://serverIP:port_no. of the api server
+contexts: --> specifying which context ot talk to which cluster using which account or service account
+ - name:  --> name of your context
+   context:
+	cluster: --> cluter name for the current context
+	user: --> user defined for the cluster must have admin certificate used and applied on the server
+users: --> specify users or services or roles to use inside the cluster
+ - name: --> name of the user 
+   user: --> defining the user privilages using certificates which will be signed by the cluster certificate defining the level of access for this user
+    client-certificate: admin.crt --> the client certificate which is supposedly signed by the cluster youre trying to access with this user
+    client-key: admin.key --> the key file for the client which is created upon creating a certificate in your client host
+```
+
+### Service Accounts
+- its defined as its own kind and attached to a pod or a deployment in its spec using `spec.serviceAccountName` 
+- assigned permissions and privelages using its bearer and authentication tokens such as jwt or API KEYs given by the service you need can be managed using the AWS ROLES for example or can be fully managed by kubernetes 
+- namespaces create has a default serviceName attached to each entity created to enable the pod to talk to the kubeapi-server 
+- pods created by default attached a service account and attached a volume containing the credentials of the service account mounted inside using a projected volume by default
+- the default credentials for the default service account doesnt give much access but the ocmmunication to the api-server
+#### Syntax
+
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+   name: --> defining the ServiceAccount's name
+   namespace: --> defining its namespace it belongs to
+```
+### Roles
+
+### RoleBingings
+- used to define a role for a service account of a user
+### ClusterRole
+- is the same as roles but defined on the cluster level not on a specific namespace if defined  its ignored
+### ClusterRoleBinding
+- although the clusterRole has no nameSpace as well as the ClusterRoleBinding isnt limited to a specific namespace yet when specifying a service account to specify which specifically do you need is with specifying its namespace
