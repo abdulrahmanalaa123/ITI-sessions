@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  volumes:
+    - name: bla-log
+      persistentVolumeClaim:
+        claimName: claim-log-1
+  containers:
+    - name: webap
+      image: nginx
+      volumeMounts:
+        - mountPath: /var/log/nginx
+          name: bla-log
+
