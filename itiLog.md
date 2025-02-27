@@ -1694,3 +1694,30 @@ metadata:
 - is the same as roles but defined on the cluster level not on a specific namespace if defined  its ignored
 ### ClusterRoleBinding
 - although the clusterRole has no nameSpace as well as the ClusterRoleBinding isnt limited to a specific namespace yet when specifying a service account to specify which specifically do you need is with specifying its namespace
+
+# 20-2-2025
+
+**is attaching a storage the ec2 instance from the console takes up a storage drive from ebs or its independent of that**
+**ssh is a bit tricky whether you shoul dadd a public and private key and known hosts or the opptosite not quite sure of that**
+**assigning network configurations to an ec2 instance can tbe changed once created**
+**elastic computing is elastic becuase you can generally resize the vm you reserved with the resources you need which i thought was instantly but it turned out that you should restart the machine first for scaling up or down the ec2**
+**EBS block storage attaching is availability zone based where if you want to mount it to the ec2 machine which is deployed in a specific AZ they should reside in the same AZ**
+**Role action sts:AssumeRole she says its responsible for generating refressheable keys either look at the actions configuration options**
+**sts is the service responsible for revalidating the tokens and generating the required credentials inside the machine**
+**session manager is used to connect to a private SSM service is used for connecting to the ec2 instance in case it has a private connection which requires a client downloaded on the ec2 instance**
+**ec2 instances can only be attached one role and specify all your policies to that**
+**not all AMIs can be attached a systems sessions manager it depends if it contains the agent or not**
+**you need to create a systems manager policy when attaching the role to the instnace**
+**Security groups are created on your instance when first creating it**
+**You need to specify in the security groups at the allowed inbound rules and outbound rules (can security groups be changed after creating the instance or not)**
+**Security groups allow whitelisting ips and ports (using cidr blocks) what does all that mean?**
+**netowkr configurations are assigned to the instance by default and cannot be changed after creation**
+**default security group doesnt work even when attached i guess even if edited**
+**security groups are extra layers of a firewall protection for your ec2 instance**
+**Aws system logs are on the instance created and can be viewed by getting the system log of the instance**
+**User scripts or user data is a file that runs on the machine's first startup only**
+**creating an ami on an attached storage packages the machine with all its current state into an AMI priced upon the reservation done by the EBS but not the actual machine image created**
+**Network interface created for each machine what does it mean how is it created etc. etc.??**
+**How is the EBS attached to the machine or how is it partitioned??**
+**EBS volume is limited to only one machine and can be scaled up and cant be scaled down manually not automatically**
+**does partitioning the volume on an instance it parittions it actually on the ebs for it to be used partitionaed on any machine?**
