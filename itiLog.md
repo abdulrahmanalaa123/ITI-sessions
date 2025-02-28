@@ -1721,3 +1721,47 @@ metadata:
 **How is the EBS attached to the machine or how is it partitioned??**
 **EBS volume is limited to only one machine and can be scaled up and cant be scaled down manually not automatically**
 **does partitioning the volume on an instance it parittions it actually on the ebs for it to be used partitionaed on any machine?**
+
+# 28-2-2025
+
+## IAAC
+- Terraform Applies the IAAC which applies it idempotently 
+- CloudFormation is the IAAC tool provided by AWS
+
+### Terraform
+- Why use terraform? because terraform is an open source solution which is cloud agnostic used to manage the lifecycle of the cloud services
+- Terraform is version sensitive and backward compatibility is possible but introduces errors so you must check version configuration with your written terraform code
+#### Terraform Core
+- Terraform is the cli tool of terraform and its entrypoint and executes terraform plugins over RPC
+- It manages the state of the resources you create using terraform 
+#### Terraform Plugins
+- There are two types of plugins either Provider or Provisioner
+- provisioner plugins are plugins which are responsible for initiating the state or running scripts on the targets
+- while the Provider plugins are specific for a given provider which enables an interface to interact with them alongside managing authentication and access for terraform on that said provider
+#### AWS provider
+- aws provider plugin is used to create and manage aws resources managing the authentication methods specific to aws which there are several methods
+- you can use the aws credentials config with profiles to access your aws account with the specified profiles on your machine
+```
+provider "aws" {
+	region = "eu-east-1"
+	profile = "profile_name"
+}
+```
+- using `terraform init` will initialize the plugins you need and create a terraform.lock file to specify the specific versions isntalled when writing your init command that should be added and properly you should add the `.terraform` file to your gitignore 
+- to enforce a dependency of several resources upon each other you can use the `depends_on = []` directive where enforces using a resource before the other where the terraform core would rearrange the order of execution depending on the dependency trees
+- creating a resource 
+```
+resource 'resource_name' 'declared_name' {
+	tags = [ --> tags are defined inside the provider for example defining the name of the resource on the provider's website
+	]
+}
+```
+- to access attributes of a resource created for example the id or the declared name or for example the assigned CIDR `resource_name.declared_name.attribute_name` you can find the attributes of the resource on the documentation's website
+- you can use the `terraform plan` command to test and check the terraform code execution plan the order of execution and the operations performed 
+- to apply your terraform Code you can use the `terraform apply` command inside your terraform directory 
+
+**first check your code using the terraform plan command because sometimes some commands aren't applicable for change of resources so it must delete the whole resource and recreate it which might not be the intended behaviour**
+
+#### Terraform state file
+-
+#### Terraform state lock file
