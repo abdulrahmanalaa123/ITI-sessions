@@ -1765,3 +1765,8 @@ resource 'resource_name' 'declared_name' {
 #### Terraform state file
 -
 #### Terraform state lock file
+
+# 2-3-2025
+
+## Terraform Modules
+- Modules are exporting the required resources and data with 
