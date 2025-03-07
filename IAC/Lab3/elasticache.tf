@@ -6,7 +6,7 @@ resource "aws_elasticache_cluster" "example" {
   parameter_group_name = "default.redis3.2"
   engine_version       = "3.2.10"
   port                 = 3000
-  security_group_ids = [module.aws_networking.private_security_group_id]
+  security_group_ids   = [module.aws_networking.private_security_group_id]
 }
 
 resource "aws_elasticache_subnet_group" "default" {

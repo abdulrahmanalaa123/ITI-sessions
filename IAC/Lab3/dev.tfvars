@@ -14,15 +14,15 @@ subnets = [{
   public = false
   az     = 0
   }, {
-    name   = "redis_subnet"
-    cidr   = "10.0.4.0/24"
-    public = false
-    az     = 1
-    }, {
-    name   = "elasticache_subnet"
-    cidr   = "10.0.5.0/24"
-    public = false
-    az     = 2
+  name   = "redis_subnet"
+  cidr   = "10.0.4.0/24"
+  public = false
+  az     = 1
+  }, {
+  name   = "elasticache_subnet"
+  cidr   = "10.0.5.0/24"
+  public = false
+  az     = 2
   }
 ]
 default_egress = {

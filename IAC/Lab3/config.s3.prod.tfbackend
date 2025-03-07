@@ -1,0 +1,3 @@
+bucket = "state-bucket-tomato"
+key = "prod/terraform.tfstate"
+region = "eu-central-1"
