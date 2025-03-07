@@ -3,3 +3,4 @@ unit_test/myvenve/
 scripts/
 IAC/**/.terraform/*
 IAC/**/.terraform*
+**/.terraform
