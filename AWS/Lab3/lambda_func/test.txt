@@ -1,0 +1,2 @@
+this is the test texxt file for testing deployment of a lambda function
+as a zip file included inside the directory
