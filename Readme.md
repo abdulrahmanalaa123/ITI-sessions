@@ -1720,7 +1720,7 @@ metadata:
 **Network interface created for each machine what does it mean how is it created etc. etc.??**
 **How is the EBS attached to the machine or how is it partitioned??**
 **EBS volume is limited to only one machine and can be scaled up and cant be scaled down manually not automatically**
-**does partitioning the volume on an instance it parittions it actually on the ebs for it to be used partitionaed on any machine?**
+**does partitioning the volume on an instance it parittions it actually on the ebs for it to be used partitionaed on any machine**
 
 # 28-2-2025
 
@@ -1770,3 +1770,10 @@ resource 'resource_name' 'declared_name' {
 
 ## Terraform Modules
 - Modules are exporting the required resources and data with 
+
+# 23-3-2025
+
+## Logging
+- Metrics , logs , traces
+### Metrics 
+- metrics are what you're watching which are 
