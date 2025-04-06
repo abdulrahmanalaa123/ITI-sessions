@@ -42,7 +42,7 @@ docker build --build-arg CURR_USER --build-arg DOCKER_GID -t jenkins_docker .
 cd
 mkdir jenkins
 ```
-- if the container is in rootless mode or has userns enabled you can check using theses commands 
+- if the container is in rootless mode or has userns enabled you can check using theses commands  [saviour](https://forums.docker.com/t/docker-sock-mount-permission/118720)
 ```
 docker info | grep -i rootless
 docker info | grep -i userns
@@ -52,7 +52,11 @@ docker info | grep -i userns
 ```
 docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v $HOME/jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
 ```
-- if you dont have docker rootless or userns enabled run the following command
+- if you dont have docker rootless or userns enabled run the following command [good but incomplete reference](https://blog.nestybox.com/2019/09/29/jenkins.html)
 ```
 docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v $HOME/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
 ```
+
+## Notes
+- There was an issue of the volume created was taking the ownership of root after calling the jenkins docker image although not editing the file ownership so had to change the ownership of referenced files following the [jenkins official dockerfile](https://github.com/jenkinsci/docker/blob/587b2856cd225bb152c4abeeaaa24934c75aa460/Dockerfile)
+- and changing the jenkins id for the current user and changing all the files' permissions to the new id in the dockerfile following [this](https://askubuntu.com/questions/16700/how-can-i-change-my-own-user-id)

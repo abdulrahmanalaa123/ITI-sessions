@@ -30,13 +30,14 @@ RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugi
 
 # adding the group docker inside the container with the same user id and the group id outside the container to have the same permissions for accessing the docker socket
 RUN groupadd -for -g $DOCKER_GID docker 
-
+# adding the group using the id in case docker was given a different id 
 RUN usermod -aG $DOCKER_GID $JENKINS_USER 
 
+# change the ownership to the jenkins user
 RUN chown -R $JENKINS_USER:jenkins $JENKINS_HOME 
 RUN chown -R $JENKINS_USER:jenkins /usr/share/jenkins/ref
 
-# changing the ownership first in root before changing to be able to find the old_Id without env vars
+# changing the ownership first in root before changing to be able to find the old_Id without env vars (only useful in case the current user_id isnt the default 1000) which is the default for jenkins
 RUN export old_id=$(id -u "$JENKINS_USER") && find / -xdev -uid "$old_id" -exec chown "$CURR_USER" '{}' \+ && \
     usermod -u "$CURR_USER" "$JENKINS_USER"
 
