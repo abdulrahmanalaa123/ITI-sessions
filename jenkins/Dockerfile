@@ -1,9 +1,20 @@
 
+
 FROM jenkins/jenkins:lts
 
-ARG CURR_USER="1000"
+#DOCKER_GID cant take the 999 id because systemd-journal takes it
 ARG DOCKER_GID="999"
-ENV JENKINS_USER=jenkins CASC_JENKINS_CONFIG=/var/jenkins_home/config.yaml
+ARG CURR_USER="1000"
+
+ADD --chmod=744 plugins.txt config.yml /provisioning/
+
+ENV JENKINS_USER=jenkins
+ENV CASC_JENKINS_CONFIG=/provisioning
+ENV PLUGINS=/provisioning/plugins.txt
+ENV JENKINS_HOME=/var/jenkins_home
+
+# JAVA_OPTS is done to disable the setup wizard on first installation
+ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
 USER root
 
@@ -17,21 +28,19 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/doc
 
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-ADD --chmod=744 plugins.txt  /provisioning/
+# adding the group docker inside the container with the same user id and the group id outside the container to have the same permissions for accessing the docker socket
+RUN groupadd -for -g $DOCKER_GID docker 
 
-ADD config.yml /var/jenkins_home/
+RUN usermod -aG $DOCKER_GID $JENKINS_USER 
 
-# JAVA_OPTS is done to disable the setup wizard on first installation
-ENV CASC_JENKINS_CONFIG=/var/jenkins_home/config.yml JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+RUN chown -R $JENKINS_USER:jenkins $JENKINS_HOME 
+RUN chown -R $JENKINS_USER:jenkins /usr/share/jenkins/ref
 
+# changing the ownership first in root before changing to be able to find the old_Id without env vars
+RUN export old_id=$(id -u "$JENKINS_USER") && find / -xdev -uid "$old_id" -exec chown "$CURR_USER" '{}' \+ && \
+    usermod -u "$CURR_USER" "$JENKINS_USER"
 
-RUN userdel jenkins && adduser -u ${CURR_USER} ${JENKINS_USER}
+USER ${JENKINS_USER}
 
-RUN groupadd -for -g ${DOCKER_GID} docker &&\
-    usermod -aG docker ${JENKINS_USER}
-
-# cant make the user variable depending on the JENKINS_USER  so leave it as jenkins
-USER jenkins
-
-RUN /bin/jenkins-plugin-cli --plugin-file /provisioning/plugins.txt
+RUN /bin/jenkins-plugin-cli --plugin-file ${PLUGINS}
 

@@ -37,7 +37,22 @@ docker build --build-arg CURR_USER --build-arg DOCKER_GID -t jenkins_docker .
 ```
 
 ## Running the container
-- run the container with your defined user and password and configuring the port
+- create the home directory with proper permissions
 ```
-docker run -it --name=jenkins --rm -p 8080:8080 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v $HOME/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
+cd
+mkdir jenkins
+```
+- if the container is in rootless mode or has userns enabled you can check using theses commands 
+```
+docker info | grep -i rootless
+docker info | grep -i userns
+```
+- run the container with mounting the user socket to the container and simply replace the username and password with your desired admin user and password
+
+```
+docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v $HOME/jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
+```
+- if you dont have docker rootless or userns enabled run the following command
+```
+docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v $HOME/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
 ```
