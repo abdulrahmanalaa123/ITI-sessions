@@ -17,6 +17,13 @@ newgrp docker
 ```
 
 ## installation
+- clone the directory
+```
+git clone -n --depth=1 --filter=tree:0 https://github.com/abdulrahmanalaa123/ITI-sessions iti
+cd iti
+git sparse-checkout set --no-cone /jenkins
+git checkout
+```
 - the plugins file is exported from the jenkins default plugins installed in a freshly setup jenkins image
 ```
 JENKINS_HOST=username:password@localhost:8080
