@@ -62,11 +62,11 @@ docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_AD
 ```
 - simply after setting up the container and mounting the volume after setting it up you can run the jenkins container using
 ```
-docker run -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
+docker run --rm -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
 ```
 for rootless docker daemon
 ```
-docker run -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
+docker run --rm -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
 
 ```
 ## Notes
