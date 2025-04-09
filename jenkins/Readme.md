@@ -45,11 +45,7 @@ docker build --build-arg CURR_USER --build-arg DOCKER_GID -t jenkins_docker .
 ```
 
 ## Running the container
-- create the home directory with proper permissions
-```
-cd
-mkdir jenkins
-```
+
 - if the container is in rootless mode or has userns enabled you can check using theses commands  [saviour](https://forums.docker.com/t/docker-sock-mount-permission/118720)
 ```
 docker info | grep -i rootless
@@ -64,11 +60,19 @@ docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_AD
 ```
 docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
 ```
+- simply after setting up the container and mounting the volume after setting it up you can run the jenkins container using
+```
+docker run -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
+```
+for rootless docker daemon
+```
+docker run -p 8080:8080 -p 50000:50000 -d -v jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
 
+```
 ## Notes
 - There was an issue of the volume created was taking the ownership of root after calling the jenkins docker image although not editing the file ownership so had to change the ownership of referenced files following the [jenkins official dockerfile](https://github.com/jenkinsci/docker/blob/587b2856cd225bb152c4abeeaaa24934c75aa460/Dockerfile)
 - and changing the jenkins id for the current user and changing all the files' permissions to the new id in the dockerfile following [this](https://askubuntu.com/questions/16700/how-can-i-change-my-own-user-id)
-- editing the run command after discovering a note in [the jenkins docker docs](https://github.com/jenkinsci/docker?tab=readme-ov-file#usage) 
+- editing the run command after discovering a note in [the jenkins docker docs](https://github.com/jenkinsci/docker?tab=readme-ov-file#usage) although it can be solved by adding the -u as -u root but idk the implications of such a thing
 ```
 NOTE: Avoid using a bind mount from a folder on the host machine into /var/jenkins_home, as this might result in file permission issues (the user used inside the container might not have rights to the folder on the host machine). If you really need to bind mount jenkins_home, ensure that the directory on the host is accessible by the jenkins user inside the container (jenkins user - uid 1000) or use -u some_other_user parameter with docker run.
 ```
