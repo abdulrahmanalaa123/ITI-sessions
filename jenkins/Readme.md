@@ -54,11 +54,11 @@ docker info | grep -i userns
 - run the container with mounting the user socket to the container and simply replace the username and password with your desired admin user and password
 
 ```
-docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
+docker run -d --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v jenkins:/var/jenkins_home -v /var/run/user/"$(id -u)"/docker.sock:/var/run/docker.sock jenkins_docker
 ```
 - if you dont have docker rootless or userns enabled run the following command [good but incomplete reference](https://blog.nestybox.com/2019/09/29/jenkins.html)
 ```
-docker run -it --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
+docker run -d --name=jenkins --rm -p 8080:8080  -p 50000:50000 --env JENKINS_ADMIN_ID=username --env JENKINS_ADMIN_PASSWORD=password --env JENKINS_LOCATION=http://localhost:8080 -v jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker
 ```
 
 ## Notes

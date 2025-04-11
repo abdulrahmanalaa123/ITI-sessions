@@ -29,7 +29,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/doc
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # adding the group docker inside the container with the same user id and the group id outside the container to have the same permissions for accessing the docker socket
-RUN groupadd -for -g $DOCKER_GID docker 
+RUN groupadd -for -g $DOCKER_GID named_group
 # adding the group using the id in case docker was given a different id 
 RUN usermod -aG $DOCKER_GID $JENKINS_USER 
 
