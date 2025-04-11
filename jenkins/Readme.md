@@ -24,6 +24,10 @@ sudo sh install-docker.sh
 sudo groupadd docker
 sudo gpasswd -a $USER docker
 ```
+- start the docker service
+```
+sudo systemctl enable --now docker
+```
 - either relogin or run in newgrp docker
 ```
 newgrp docker
